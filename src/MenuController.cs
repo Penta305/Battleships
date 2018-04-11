@@ -52,7 +52,7 @@ namespace Battleship
 
         private bool HandleMenuInput(int menu, int level, int xOffset)
         {
-            if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+            if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
                 EndCurrentState();
                 return true;

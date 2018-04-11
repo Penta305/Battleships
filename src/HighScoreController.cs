@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Collections.Generic;
 using SwinGameSDK;
 using static SwinGameSDK.SwinGame; // requires mcs version 4+, 
 // using SwinGameSDK.SwinGame; // requires mcs version 4+, 
