@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Battleship
 {
     public class Ship
@@ -9,9 +11,10 @@ namespace Battleship
         private int _row;
         private int _col;
         private Direction _direction;
+
         public string Name
         {
-            private get
+            get
             {
                 if (_shipName == ShipName.AircraftCarrier)
                 {
@@ -24,7 +27,7 @@ namespace Battleship
 
         public int Size
         {
-            private get
+            get
             {
                 return _sizeOfShip;
             }
@@ -32,7 +35,7 @@ namespace Battleship
 
         public int Hits
         {
-            private get
+            get
             {
                 return _hitsTaken;
             }
@@ -40,7 +43,7 @@ namespace Battleship
 
         public int Row
         {
-            private get
+            get
             {
                 return _row;
             }
@@ -48,7 +51,7 @@ namespace Battleship
 
         public int Column
         {
-            private get
+            get
             {
                 return _col;
             }
@@ -56,7 +59,7 @@ namespace Battleship
 
         public Direction Direction
         {
-            private get
+            get
             {
                 return _direction;
             }
@@ -91,7 +94,7 @@ namespace Battleship
 
         public bool IsDeployed
         {
-            private get
+            get
             {
                 return _tiles.Count > 0;
             }
@@ -99,7 +102,7 @@ namespace Battleship
 
         public bool IsDestroyed
         {
-            private get
+            get
             {
                 return Hits == Size;
             }

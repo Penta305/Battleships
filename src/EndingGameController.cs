@@ -4,7 +4,7 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
-    static class EndingGameController
+    public class EndingGameController
     {
         public void DrawEndOfGame()
         {

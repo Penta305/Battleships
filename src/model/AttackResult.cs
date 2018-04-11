@@ -10,7 +10,7 @@ namespace Battleship
 
         public ResultOfAttack Value
         {
-            private get
+            get
             {
                 return _Value;
             }
@@ -18,7 +18,7 @@ namespace Battleship
 
         public Ship Ship
         {
-            private get
+            get
             {
                 return _Ship;
             }
@@ -26,7 +26,7 @@ namespace Battleship
 
         public string Text
         {
-            private get
+            get
             {
                 return _Text;
             }
@@ -34,7 +34,7 @@ namespace Battleship
 
         public int Row
         {
-            private get
+            get
             {
                 return _Row;
             }
@@ -42,7 +42,7 @@ namespace Battleship
 
         public int Column
         {
-            private get
+            get
             {
                 return _Column;
             }

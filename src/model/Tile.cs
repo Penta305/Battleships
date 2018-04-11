@@ -1,3 +1,5 @@
+using System;
+
 namespace Battleship
 {
     public class Tile
@@ -6,14 +8,15 @@ namespace Battleship
         private readonly int _ColumnValue;
         private Ship _Ship = null;
         private bool _Shot = false;
+
         public bool Shot
         {
-            private get
+            get
             {
                 return _Shot;
             }
 
-            private set
+            set
             {
                 _Shot = value;
             }
@@ -21,7 +24,7 @@ namespace Battleship
 
         public int Row
         {
-            private get
+            get
             {
                 return _RowValue;
             }
@@ -29,7 +32,7 @@ namespace Battleship
 
         public int Column
         {
-            private get
+            get
             {
                 return _ColumnValue;
             }
@@ -37,12 +40,12 @@ namespace Battleship
 
         public Ship Ship
         {
-            private get
+            get
             {
                 return _Ship;
             }
 
-            private set
+            set
             {
                 if (_Ship == null)
                 {
@@ -73,7 +76,7 @@ namespace Battleship
 
         public TileView View
         {
-            private get
+            get
             {
                 if (_Ship == null)
                 {
