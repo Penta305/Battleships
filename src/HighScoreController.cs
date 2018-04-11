@@ -9,6 +9,7 @@ namespace Battleship
     {
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;
+
         private struct Score : IComparable
         {
             public string Name;
@@ -92,7 +93,7 @@ namespace Battleship
 
         public void HandleHighScoreInput()
         {
-            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE) || SwinGame.KeyTyped(KeyCode.VK_RETURN))
+            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.EscapeKey) || SwinGame.KeyTyped(KeyCode.ReturnKey))
             {
                 EndCurrentState();
             }
@@ -110,6 +111,7 @@ namespace Battleship
                 AddNewState(GameState.ViewingHighScores);
                 int x;
                 x = SCORES_LEFT + SwinGame.TextWidth(GameFont("Courier"), "Name: ");
+                SwinGame.TextWidth(SwinGame.Font;
                 SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameFont("Courier"), x, ENTRY_TOP);
                 while (SwinGame.ReadingText())
                 {

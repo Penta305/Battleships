@@ -8,7 +8,7 @@ namespace Battleship
     {
         public void HandleDiscoveryInput()
         {
-            if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+            if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
                 AddNewState(GameState.ViewingGameMenu);
             }
@@ -41,7 +41,7 @@ namespace Battleship
             const int SHOTS_TOP = 157;
             const int HITS_TOP = 206;
             const int SPLASH_TOP = 256;
-            if ((SwinGame.KeyDown(KeyCode.VK_LSHIFT) | SwinGame.KeyDown(KeyCode.VK_RSHIFT)) & SwinGame.KeyDown(KeyCode.VK_C))
+            if ((SwinGame.KeyDown(KeyCode.LeftShiftKey) | SwinGame.KeyDown(KeyCode.RightShiftKey)) & SwinGame.KeyDown(KeyCode.CKey))
             {
                 DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, true);
             }
@@ -54,7 +54,7 @@ namespace Battleship
             DrawMessage();
             SwinGame.DrawText(HumanPlayer.Shots.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
             SwinGame.DrawText(HumanPlayer.Hits.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, HITS_TOP);
-            SwinGame.DrawText(HumanPlayer.Missed.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
+            SwinGame.DrawText(HumanPlayer.Missed.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SPLASH_TOP); Resources.Gamefon
         }
     }
     //=======================================================
