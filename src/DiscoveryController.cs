@@ -4,7 +4,7 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
-    static class DiscoveryController
+    public class DiscoveryController
     {
         public void HandleDiscoveryInput()
         {

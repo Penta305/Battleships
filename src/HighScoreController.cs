@@ -5,7 +5,7 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
-    static class HighScoreController
+    public class HighScoreController
     {
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;

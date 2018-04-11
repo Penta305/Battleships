@@ -4,7 +4,7 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
-    static class MenuController
+    public class MenuController
     {
         private readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
         private const int MENU_TOP = 575;
