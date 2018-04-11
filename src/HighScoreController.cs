@@ -111,7 +111,6 @@ namespace Battleship
                 AddNewState(GameState.ViewingHighScores);
                 int x;
                 x = SCORES_LEFT + SwinGame.TextWidth(GameFont("Courier"), "Name: ");
-                SwinGame.TextWidth(SwinGame.Font;
                 SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameFont("Courier"), x, ENTRY_TOP);
                 while (SwinGame.ReadingText())
                 {
