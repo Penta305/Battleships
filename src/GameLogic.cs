@@ -1,6 +1,6 @@
 using SwinGameSDK;
 using static SwinGameSDK.SwinGame; // requires mcs version 4+, 
-// using SwinGameSDK.SwinGame; // requires mcs version 4+, 
+// using SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
@@ -9,16 +9,17 @@ namespace Battleship
         public void Main()
         {
             SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
-            LoadResources();
+
+            GameResources.LoadResources();
             SwinGame.PlayMusic(GameMusic("Background"));
             do
             {
-                HandleUserInput();
-                DrawScreen();
+                GameController.HandleUserInput();
+                GameController.DrawScreen();
             }
             while (!SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting);
             SwinGame.StopMusic();
-            FreeResources();
+            GameResources.FreeResources();
         }
     }
 }
