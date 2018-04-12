@@ -1,10 +1,11 @@
 using System;
 using SwinGameSDK;
 using Battleship;
-// '' <summary>
-// '' The DeploymentController controls the players actions
-// '' during the deployment phase.
-// '' </summary>
+
+// The DeploymentController controls the players actions
+// during the deployment phase, allowing them to place
+// ships into their preferred positions for the game.
+
 
 namespace Battleship
 {
@@ -43,14 +44,13 @@ namespace Battleship
 
         private ShipName _selectedShip = ShipName.Tug;
 
-        // '' <summary>
-        // '' Handles user input for the Deployment phase of the game.
-        // '' </summary>
-        // '' <remarks>
-        // '' Involves selecting the ships, deloying ships, changing the direction
-        // '' of the ships to add, randomising deployment, end then ending
-        // '' deployment
-        // '' </remarks>
+ 
+        // Handles the user input for the Deployment phase of the game.
+  
+        // Includes options for selecting each ship, deloying each ship,
+        // changing the direction, each ship is facing, random deployment,
+        // and ending deployment (starting the game).
+
         public void HandleDeploymentInput()
         {
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
@@ -107,19 +107,17 @@ namespace Battleship
 
         }
 
-        // '' <summary>
-        // '' The user has clicked somewhere on the screen, check if its is a deployment and deploy
-        // '' the current ship if that is the case.
-        // '' </summary>
-        // '' <remarks>
-        // '' If the click is in the grid it deploys to the selected location
-        // '' with the indicated direction
-        // '' </remarks>
+        // If the user has clicked somewhere on the screen, check if its a deployment
+        // and, if it's true, deploy the currently selected ship with the
+        // direction indicated by the controller.
+
         private static void DoDeployClick()
         {
             Point2D mouse;
             mouse = SwinGame.MousePosition();
-            // Calculate the row/col clicked
+
+            // Calculate the row and column selected
+
             int row;
             int col;
             row = Convert.ToInt32(Math.Floor((mouse.Y
@@ -132,7 +130,9 @@ namespace Battleship
                 if (((col >= 0)
                             && (col < HumanPlayer.PlayerGrid.Width)))
                 {
-                    // if in the area try to deploy
+
+                    // If the click is within the area, try to deploy
+
                     try
                     {
                         HumanPlayer.PlayerGrid.MoveShip(row, col, _selectedShip, _currentDirection);
@@ -149,27 +149,35 @@ namespace Battleship
 
         }
 
-        // '' <summary>
-        // '' Draws the deployment screen showing the field and the ships
-        // '' that the player can deploy.
-        // '' </summary>
+        // Draws the deployment screen showing the field and the ships
+        // that the player can deploy.
+
         public static void DrawDeployment()
         {
             DrawField(HumanPlayer.PlayerGrid, HumanPlayer, true);
+            
             // Draw the Left/Right and Up/Down buttons
+
             if ((_currentDirection == Direction.LeftRight))
             {
                 SwinGame.DrawBitmap(GameImage("LeftRightButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                
+                // CHECK
                 // SwinGame.DrawText("U/D", Color.Gray, GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP)
                 // SwinGame.DrawText("L/R", Color.White, GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP)
+                // CHECK
             }
             else
             {
                 SwinGame.DrawBitmap(GameImage("UpDownButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                
+                // CHECK
                 // SwinGame.DrawText("U/D", Color.White, GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP)
                 // SwinGame.DrawText("L/R", Color.Gray, GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP)
-            }
 
+            }
+            
+            // CHECK
             // DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {
@@ -181,13 +189,19 @@ namespace Battleship
                     {
                         SwinGame.DrawBitmap(GameImage("SelectedShip"), SHIPS_LEFT, (SHIPS_TOP
                                         + (i * SHIPS_HEIGHT)));
+                        
+                        // CHECK
                         //     SwinGame.FillRectangle(Color.LightBlue, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
                         // Else
                         //     SwinGame.FillRectangle(Color.Gray, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
+
                     }
 
+                    // CHECK
                     // SwinGame.DrawRectangle(Color.Black, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
                     // SwinGame.DrawText(sn.ToString(), Color.Black, GameFont("Courier"), SHIPS_LEFT + TEXT_OFFSET, SHIPS_TOP + i * SHIPS_HEIGHT)
+                    // CHECK
+
                 }
 
             }
@@ -195,6 +209,8 @@ namespace Battleship
             if (HumanPlayer.ReadyToDeploy)
             {
                 SwinGame.DrawBitmap(GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                
+                //CHECK
                 // SwinGame.FillRectangle(Color.LightBlue, PLAY_BUTTON_LEFT, PLAY_BUTTON_TOP, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT)
                 // SwinGame.DrawText("PLAY", Color.Black, GameFont("Courier"), PLAY_BUTTON_LEFT + TEXT_OFFSET, PLAY_BUTTON_TOP)
             }
@@ -203,10 +219,9 @@ namespace Battleship
             DrawMessage();
         }
 
-        // '' <summary>
-        // '' Gets the ship that the mouse is currently over in the selection panel.
-        // '' </summary>
-        // '' <returns>The ship selected or none</returns>
+        // Selects the ship that the mouse is currently hovered over
+        // in the selection panel.
+
         private static ShipName GetShipMouseIsOver()
         {
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
