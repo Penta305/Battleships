@@ -13,16 +13,19 @@ namespace Battleship
         }
 
         private static void LoadImages() {
+            
             // Backgrounds
             NewImage("Menu", "main_page.jpg");
             NewImage("Discovery", "discover.jpg");
             NewImage("Deploy", "deploy.jpg");
+            
             // Deployment
             NewImage("LeftRightButton", "deploy_dir_button_horiz.png");
             NewImage("UpDownButton", "deploy_dir_button_vert.png");
             NewImage("SelectedShip", "deploy_button_hl.png");
             NewImage("PlayButton", "deploy_play_button.png");
             NewImage("RandomButton", "deploy_randomize_button.png");
+            
             // Ships
             int i;
             for (i = 1; (i <= 5); i++) {
@@ -51,38 +54,34 @@ namespace Battleship
             NewMusic("Background", "horrordrone.mp3");
         }
 
-        // '' <summary>
-        // '' Gets a Font Loaded in the Resources
-        // '' </summary>
-        // '' <param name="font">Name of Font</param>
-        // '' <returns>The Font Loaded with this Name</returns>
+        // Gets a Font currently loaded in the Resources
+       
+        // CHECK
+        // <param name="font">Name of Font</param>
         public static Font GameFont(string font) {
             return _Fonts(font);
         }
 
-        // '' <summary>
-        // '' Gets an Image loaded in the Resources
-        // '' </summary>
-        // '' <param name="image">Name of image</param>
-        // '' <returns>The image loaded with this name</returns>
+        // Gets an Image currently loaded in the Resources
+
+        // CHECK
+        // <param name="image">Name of image</param>
         public static Bitmap GameImage(string image) {
             return _Images(image);
         }
 
-        // '' <summary>
-        // '' Gets an sound loaded in the Resources
-        // '' </summary>
-        // '' <param name="sound">Name of sound</param>
-        // '' <returns>The sound with this name</returns>
+        // Gets an sound currently loaded in the Resources
+
+        // CHECK
+        // <param name="sound">Name of sound</param>
         public static SoundEffect GameSound(string sound) {
             return _Sounds(sound);
         }
 
-        // '' <summary>
-        // '' Gets the music loaded in the Resources
-        // '' </summary>
+        // '' Gets the music currently loaded in the Resources
+
+        // CHECK
         // '' <param name="music">Name of music</param>
-        // '' <returns>The music with this name</returns>
         public static Music GameMusic(string music) {
             return _Music(music);
         }
@@ -107,10 +106,9 @@ namespace Battleship
 
         private SoundEffect _StartSound;
 
-        // '' <summary>
-        // '' The Resources Class stores all of the Games Media Resources, such as Images, Fonts
-        // '' Sounds, Music.
-        // '' </summary>
+        // The Resources Class stores all of the games media resources, such as images,
+        // fonts, sounds, and music.
+
         public static void LoadResources() {
             int width;
             int height;
@@ -179,12 +177,14 @@ namespace Battleship
             STEPS;
             SwinGame.DrawBitmap(_LoaderEmpty, BG_X, BG_Y);
             SwinGame.DrawCell(_LoaderFull, 0, BG_X, BG_Y);
+            // CHECK
             //  SwinGame.DrawBitmapPart(_LoaderFull, 0, 0, fullW, 66, BG_X, BG_Y)
             toDraw.X = TX;
             toDraw.Y = TY;
             toDraw.Width = TW;
             toDraw.Height = TH;
             SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, toDraw);
+            // CHECK
             //  SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, TX, TY, TW, TH)
             SwinGame.RefreshScreen();
             SwinGame.ProcessEvents();
