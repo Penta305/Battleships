@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
 
-// '' <summary>
-// '' Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
-// '' all ships are deployed and if all ships are detroyed. A Player can also attach.
-// '' </summary>
+// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
+// all ships are deployed and if all ships are detroyed. A Player can also attach.
 
 namespace Battleship
 {
@@ -29,11 +27,8 @@ namespace Battleship
 
         private int _misses;
 
-        // '' <summary>
-        // '' Returns the game that the player is part of.
-        // '' </summary>
-        // '' <value>The game</value>
-        // '' <returns>The game that the player is playing</returns>
+        // Returns the game that the player is a part of.
+
         public BattleShipsGame Game
         {
             get
@@ -57,7 +52,8 @@ namespace Battleship
         public Player(BattleShipsGame controller)
         {
             _game = controller;
-            // for each ship add the ships name so the seagrid knows about them
+
+            // For each ship, add the ship's name so the seagrid knows which one it is
             foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
             {
                 if ((name != ShipName.None))
@@ -70,9 +66,8 @@ namespace Battleship
             this.RandomizeDeployment();
         }
 
-        // '' <summary>
-        // '' The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
-        // '' </summary>
+        // The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
+
         public ISeaGrid EnemyGrid
         {
             get
@@ -174,11 +169,8 @@ namespace Battleship
             return lst.GetEnumerator();
         }
 
-        // '' <summary>
-        // '' Makes it possible to enumerate over the ships the player
-        // '' has.
-        // '' </summary>
-        // '' <returns>A Ship enumerator</returns>
+        // Makes it possible to enumerate over the ships the player has.
+
         public IEnumerator GetEnumerator()
         {
             Ship[,] result;
@@ -188,21 +180,16 @@ namespace Battleship
             return lst.GetEnumerator();
         }
 
-        // '' <summary>
-        // '' Vitual Attack allows the player to shoot
-        // '' </summary>
+        // Virtual Attack allows the player to shoot
+
         public virtual AttackResult Attack()
         {
             // human does nothing here...
             return null;
         }
 
-        // '' <summary>
-        // '' Shoot at a given row/column
-        // '' </summary>
-        // '' <param name="row">the row to attack</param>
-        // '' <param name="col">the column to attack</param>
-        // '' <returns>the result of the attack</returns>
+        // Shoot at a given row/column
+
         internal AttackResult Shoot(int row, int col)
         {
             _shots++;
@@ -225,7 +212,8 @@ namespace Battleship
         {
             bool placementSuccessful;
             Direction heading;
-            // for each ship to deploy in shipist
+
+            // For each ship to deploy in shiplist
             foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName)))
             {
                 if ((shipToPlace == ShipName.None))
@@ -250,7 +238,7 @@ namespace Battleship
                         heading = Direction.LeftRight;
                     }
 
-                    // try to place ship, if position unplaceable, generate new coordinates
+                    // Try to place ship, if position unplaceable, generate new coordinates
                     try
                     {
                         PlayerGrid.MoveShip(x, y, shipToPlace, heading);
