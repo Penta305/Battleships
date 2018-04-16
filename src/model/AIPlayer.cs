@@ -14,7 +14,7 @@ namespace Battleship
         // '' Location can store the location of the last hit made by an
         // '' AI Player. The use of which determines the difficulty.
         // '' </summary>
-        class Location
+        public class Location
         {
 
             private int _Row;
@@ -82,7 +82,7 @@ namespace Battleship
         // '' The AI takes its attacks until its go is over.
         // '' </summary>
         // '' <returns>The result of the last attack</returns>
-        public override AttackResult Attack()
+        public AttackResult Attack()
         {
             AttackResult result;
             int row = 0;

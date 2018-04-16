@@ -16,7 +16,7 @@ namespace Battleship
         {
         }
 
-        protected override void GenerateCoords(ref int row, ref int column)
+        protected void GenerateCoords(ref int row, ref int column)
         {
             do
             {
@@ -46,7 +46,7 @@ namespace Battleship
             column = _Random.Next(0, EnemyGrid.Width);
         }
 
-        protected override void ProcessShot(int row, int col, AttackResult result)
+        protected void ProcessShot(int row, int col, AttackResult result)
         {
             if (result.Value == ResultOfAttack.Hit)
             {

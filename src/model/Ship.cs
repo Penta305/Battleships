@@ -69,7 +69,7 @@ namespace Battleship
         {
             _shipName = ship;
             _tiles = new List<Tile>();
-            _sizeOfShip = _shipName;
+            _sizeOfShip = ShipName;
         }
 
         public void AddTile(Tile tile)
