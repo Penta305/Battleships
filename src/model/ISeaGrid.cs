@@ -21,10 +21,8 @@ namespace Battleship
 
 
         // Provides access to the given row/column
-        TileView Item
-        {
-            get;
-        }
+        TileView Item(int row, int col);
+      
 
         // CHECK: Properties don't accept parameters in C#, Change to method?
         // TileView Item2(int row, int col);

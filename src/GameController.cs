@@ -13,8 +13,8 @@ namespace Battleship
     {
 
         private BattleShipsGame _theGame;
-
-        private Player _human;
+        
+        private static Player _human;
 
         private AIPlayer _ai;
 
@@ -44,7 +44,7 @@ namespace Battleship
             }
         }
 
-        public Player ComputerPlayer
+        public  Player ComputerPlayer
         {
             get
             {
@@ -68,32 +68,33 @@ namespace Battleship
         // '' </remarks>
         public static void StartGame()
         {
-            if (_theGame)
+            GameController _StartGame = new GameController();
+            if (_StartGame._theGame == null)
             {
-                IsNot;
-                null;
-                GameController.EndGame();
-                // Create the game
-                _theGame = new BattleShipsGame();
+                EndGame();
+            }
+
+            // Create the game
+            _StartGame._theGame = new BattleShipsGame();
                 // create the players
-                switch (_aiSetting)
+                switch (_StartGame._aiSetting)
                 {
                     case AIOption.Medium:
-                        _ai = new AIMediumPlayer(_theGame);
+                        _StartGame._ai = new AIMediumPlayer(_StartGame._theGame);
                         break;
                     case AIOption.Hard:
-                        _ai = new AIHardPlayer(_theGame);
+                        _StartGame._ai = new AIHardPlayer(_StartGame._theGame);
                         break;
                     default:
-                        _ai = new AIHardPlayer(_theGame);
+                        _StartGame._ai = new AIHardPlayer(_StartGame._theGame);
                         break;
                 }
-                _human = new Player(_theGame);
-                // AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
-                _ai.PlayerGrid.Changed += new System.EventHandler(this.GridChanged);
+                _human = new Player(_StartGame._theGame);
+            // AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
+            _StartGame._ai.PlayerGrid.Changed += new System.EventHandler(this.GridChanged);
                 _theGame.AttackCompleted += new System.EventHandler(this.AttackCompleted);
                 GameController.AddNewState(GameState.Deploying);
-            }
+            
 
             // '' <summary>
             // '' Stops listening to the old game once a new game is started

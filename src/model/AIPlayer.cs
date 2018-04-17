@@ -7,7 +7,7 @@ using SwinGameSDK;
 // ''Public MustInherit Class AIPlayer : Inherits Player
 namespace Battleship
 {
-    public class AIPlayer
+    public class AIPlayer:Player
     {
 
         // '' <summary>
@@ -68,7 +68,8 @@ namespace Battleship
         // '' <param name="row">output the row for the next shot</param>
         // '' <param name="column">output the column for the next show</param>
         // ''TODO: FIXME - Elijah
-        // ''Protected MustOverride Sub GenerateCoords(ByRef row As Integer, ByRef column As Integer)
+        // ''Protected MustOverride Sub GenerateCoords(ByRef row As 
+        eger, ByRef column As Integer)
         // '' <summary>
         // '' The last shot had the following result. Child classes can use this
         // '' to prepare for the next shot.

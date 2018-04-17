@@ -131,24 +131,21 @@ namespace Battleship
         // '' <param name="cellGap">the gap between the cells</param>
         private static void DrawCustomField(ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap)
         {
+            UtilityFunctions _DrawCustomField = new UtilityFunctions();
             // SwinGame.FillRectangle(Color.Blue, left, top, width, height)
             int rowTop;
             int colLeft;
             // Draw the grid
             for (int row = 0; (row <= 9); row++)
             {
-                rowTop = (top
-                            + ((cellGap + cellHeight)
-                            * row));
+                rowTop = (top + ((cellGap + cellHeight)* row));
                 for (int col = 0; (col <= 9); col++)
                 {
-                    colLeft = (left
-                                + ((cellGap + cellWidth)
-                                * col));
-                    Color fillColor;
+                    colLeft = (left + ((cellGap + cellWidth) * col));
+                    Color fillColor = new Color(0);
                     bool draw;
                     draw = true;
-                    switch (grid.Item[row, col])
+                    switch (grid.Item(row, col))
                     {
                         case TileView.Ship:
                             draw = false;
@@ -156,30 +153,29 @@ namespace Battleship
                         case TileView.Miss:
                             if (small)
                             {
-                                fillColor = SMALL_MISS;
+                                fillColor = _DrawCustomField.SMALL_MISS;
                             }
                             else
                             {
-                                fillColor = LARGE_MISS;
+                                fillColor = _DrawCustomField.LARGE_MISS;
                             }
 
                             break;
                         case TileView.Hit:
                             if (small)
                             {
-                                fillColor = SMALL_HIT;
+                                fillColor = _DrawCustomField.SMALL_HIT;
                             }
                             else
                             {
-                                fillColor = LARGE_HIT;
+                                fillColor = _DrawCustomField.LARGE_HIT;
                             }
 
                             break;
                         case TileView.Sea:
-                        case TileView.Ship:
                             if (small)
                             {
-                                fillColor = SMALL_SEA;
+                                fillColor = _DrawCustomField.SMALL_SEA;
                             }
                             else
                             {
@@ -193,7 +189,7 @@ namespace Battleship
                         SwinGame.FillRectangle(fillColor, colLeft, rowTop, cellWidth, cellHeight);
                         if (!small)
                         {
-                            SwinGame.DrawRectangle(OUTLINE_COLOR, colLeft, rowTop, cellWidth, cellHeight);
+                            SwinGame.DrawRectangle(_DrawCustomField.OUTLINE_COLOR, colLeft, rowTop, cellWidth, cellHeight);
                         }
 
                     }

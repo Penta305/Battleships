@@ -54,14 +54,14 @@ namespace Battleship
         {
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
-                EndCurrentState();
+                GameController.EndCurrentState();
                 return true;
             }
 
             if (SwinGame.MouseClicked(MouseButton.LeftButton))
             {
                 int i;
-                for (i = 0; i <= _menuStructure(menu).Length - 1; i++)
+                for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
                 {
                     if (IsMouseOverMenu(i, level, xOffset))
                     {
@@ -72,7 +72,7 @@ namespace Battleship
 
                 if (level > 0)
                 {
-                    EndCurrentState();
+                    GameController.EndCurrentState();
                 }
             }
 
@@ -106,7 +106,7 @@ namespace Battleship
             Rectangle toDraw;
             btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
             int i;
-            for (i = 0; i <= _menuStructure(menu).Length - 1; i++)
+            for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
             {
                 int btnLeft;
                 btnLeft = MENU_LEFT + BUTTON_SEP * (i + xOffset);
@@ -114,7 +114,7 @@ namespace Battleship
                 toDraw.Y = btnTop + TEXT_OFFSET;
                 toDraw.Width = BUTTON_WIDTH;
                 toDraw.Height = BUTTON_HEIGHT;
-                SwinGame.DrawTextLines(_menuStructure(menu)(i), MENU_COLOR, Color.Black, GameFont("Menu"), FontAlignment.AlignCenter, toDraw);
+                SwinGame.DrawText(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, toDraw);
                 if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 {
                     SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);

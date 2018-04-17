@@ -54,3 +54,7 @@ C:\Users\Crimson\Documents\2018-Sem-1\SWE20001\p5.1\GameTemplate\obj\x86\Debug-W
 C:\Users\Crimson\Documents\2018-Sem-1\SWE20001\p5.1\GameTemplate\obj\x86\Debug-Windows\MyGameWin.csproj.CopyComplete
 C:\Users\Crimson\Documents\2018-Sem-1\SWE20001\p5.1\GameTemplate\obj\x86\Debug-Windows\MyGame.exe
 C:\Users\Crimson\Documents\2018-Sem-1\SWE20001\p5.1\GameTemplate\obj\x86\Debug-Windows\MyGame.pdb
+G:\Tiger White\swinburne\Year 2\Sem1\Development tool 1\Battleships\obj\x86\Debug-Windows\MyGameWin.csprojResolveAssemblyReference.cache
+G:\Tiger White\swinburne\Year 2\Sem1\Development tool 1\Battleships\obj\x86\Debug-Windows\MyGameWin.csproj.CoreCompileInputs.cache
+G:\Tiger White\swinburne\Year 2\Sem1\Development tool 1\Battleships\obj\x86\Debug-Windows\MyGame.exe
+G:\Tiger White\swinburne\Year 2\Sem1\Development tool 1\Battleships\obj\x86\Debug-Windows\MyGame.pdb
