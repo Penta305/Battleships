@@ -6,14 +6,8 @@ namespace Battleship
 {
     public class GameLogic
     {
-        public void Main()
+        public static void Main()
         {
-
-            // Opens up a new graphics window
-
-
-            GameController _Main = new GameController();
-
             SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
 
             GameResources.LoadResources();
@@ -23,17 +17,15 @@ namespace Battleship
                 GameController.HandleUserInput();
                 GameController.DrawScreen();
             }
-
-            // while (!SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting);
-
-
-            while (!SwinGame.WindowCloseRequested() == true | _Main.CurrentState == GameState.Quitting);
-
+            while (!SwinGame.WindowCloseRequested() == true | GameController.GameCurrentState == GameState.Quitting);
             SwinGame.StopMusic();
-
-            // Free resources and close audio to end the program.
-
             GameResources.FreeResources();
         }
     }
 }
+//=======================================================
+//Service provided by Telerik (www.telerik.com)
+//Conversion powered by Refactoring Essentials.
+//Twitter: @telerik
+//Facebook: facebook.com/telerik
+//=======================================================
