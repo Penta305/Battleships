@@ -78,7 +78,8 @@ namespace Battleship
             _tiles = new List<Tile>();
 
             // It gets the ship size from the enumerator
-            _sizeOfShip = _shipName;
+            _sizeOfShip = (int)_shipName;
+
         }
 
         public void AddTile(Tile tile)

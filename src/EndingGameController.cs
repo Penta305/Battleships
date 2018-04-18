@@ -1,3 +1,4 @@
+
 using SwinGameSDK;
 using static SwinGameSDK.SwinGame; // requires mcs version 4+, 
 // using SwinGameSDK.SwinGame; // requires mcs version 4+, 
@@ -14,18 +15,29 @@ namespace Battleship
 
         public void DrawEndOfGame()
         {
-            Rectangle toDraw;
+            GameController _DrawEndOfGame = new GameController();
+            Rectangle toDraw = new Rectangle();
             string whatShouldIPrint;
 
-            DrawField(ComputerPlayer.PlayerGrid, ComputerPlayer, true);
-            DrawSmallField(HumanPlayer.PlayerGrid, HumanPlayer);
 
+            //DrawField(ComputerPlayer.PlayerGrid, ComputerPlayer, true);
+            //DrawSmallField(HumanPlayer.PlayerGrid, HumanPlayer);
+
+            //toDraw.X = 0;
+            //toDraw.Y = 250;
+            //toDraw.Width = SwinGame.ScreenWidth();
+            //toDraw.Height = SwinGame.ScreenHeight();
+
+            //if (HumanPlayer.IsDestroyed)
+
+            UtilityFunctions.DrawField(_DrawEndOfGame.ComputerPlayer.PlayerGrid, _DrawEndOfGame.ComputerPlayer, true);
+            UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
             toDraw.X = 0;
             toDraw.Y = 250;
-            toDraw.Width = SwinGame.ScreenWidth();
-            toDraw.Height = SwinGame.ScreenHeight();
+            toDraw.Width = ScreenWidth();
+            toDraw.Height = ScreenHeight();
+            if (GameController.HumanPlayer.IsDestroyed)
 
-            if (HumanPlayer.IsDestroyed)
             {
                 whatShouldIPrint = "YOU LOSE!";
             }
@@ -34,19 +46,19 @@ namespace Battleship
                 whatShouldIPrint = "-- WINNER --";
             }
 
-            SwinGame.DrawTextLines(whatShouldIPrint, Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw);
+            DrawText(whatShouldIPrint, Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw);
         }
 
         // This handles the player input at the end of the game. Any input
         // with the system will result in the display of the high scores
         // page being shown
-        
+
         public void HandleEndOfGameInput()
         {
-            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_RETURN) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.ReturnKey) || SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
-                ReadHighScore(HumanPlayer.Score);
-                EndCurrentState();
+                HighScoreController.ReadHighScore(GameController.HumanPlayer.Score);
+                GameController.EndCurrentState();
             }
         }
     }

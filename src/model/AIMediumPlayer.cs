@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using SwinGameSDK;
 
 namespace Battleship
 {
@@ -18,6 +20,7 @@ namespace Battleship
         }
 
         private AIStates _CurrentState = AIStates.Searching;
+
         private Stack<Location> _Targets = new Stack<Location>();
         public AIMediumPlayer(BattleShipsGame controller) : base(controller)
         {
@@ -31,18 +34,25 @@ namespace Battleship
         {
             do
             {
+
                 // Check which state the AI is in to decide with coordinate
                 // generation method should be used.
 
                 // TODO Implement Case Statement
+
                 switch (_CurrentState)
-                { }
-                //        SearchCoords(ref row, ref column);
-                //        TargetCoords(ref row, ref column);
-                //        throw new ApplicationException("AI has gone in an imvalid state");
-                //}
-            }
-            while ((row < 0 || column < 0 || row >= EnemyGrid.Height || column >= EnemyGrid.Width || EnemyGrid.Item(row, column) != TileView.Sea));
+                {
+                    case AIStates.Searching:
+                        SearchCoords(ref row, ref column);
+                        break;
+                    case AIStates.TargetingShip:
+                        TargetCoords(ref row, ref column);
+                        break;
+                    default:
+                        throw new ApplicationException("AI has gone in an imvalid state");
+                }
+            } while ((row < 0 || column < 0 || row >= EnemyGrid.Height || column >= EnemyGrid.Width || EnemyGrid.Item(row, column) != TileView.Sea));
+            
         }
 
         // TargetCoords is used once a ship has been hit and it will then try
@@ -51,6 +61,7 @@ namespace Battleship
         private void TargetCoords(ref int row, ref int column)
         {
             Location l = _Targets.Pop();
+
             if ((_Targets.Count == 0))
                 _CurrentState = AIStates.Searching;
             row = l.Row;
@@ -87,9 +98,10 @@ namespace Battleship
         }
 
         // AddTarget will add the targets it will shoot onto a new stack
-        
+
         private void AddTarget(int row, int column)
         {
+
             if (row >= 0 && column >= 0 && row < EnemyGrid.Height && column < EnemyGrid.Width && EnemyGrid.Item(row, column) == TileView.Sea)
             {
                 _Targets.Push(new Location(row, column));

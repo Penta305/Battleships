@@ -1,3 +1,5 @@
+using System;
+using SwinGameSDK;
 
 namespace Battleship
 {
@@ -8,7 +10,6 @@ namespace Battleship
 
     public class BattleShipsGame
     {
-
         // The attack delegate type is used to send notifications of the end of an
         // attack by a player or the AI.
 
@@ -16,70 +17,74 @@ namespace Battleship
 
         // The AttackCompleted event is raised when attack is completed.
         // It is used by the UI to play sound sound effects etc.
+
         public event AttackCompletedHandler AttackCompleted;
 
-        private int _playerIndex = 0;
+        private Player[] _players = new Player[2];
 
         // The current player. This value will switch between the two players
         // each turn.
+        private int _playerIndex = 0;
+
         public Player Player
         {
-            get
-            {
-                return _players(_playerIndex);
-            }
+            get { return _players[_playerIndex]; }
         }
 
         // AddDeployedPlayer adds both players and will make sure that the AI
         // player has deployed all ships
-
         public void AddDeployedPlayer(Player p)
         {
-            if ((_players(0) == null))
+            if (_players[0] == null)
             {
-                _players(0) = p;
+                _players[0] = p;
             }
-            else if ((_players(1) == null))
+            else if (_players[1] == null)
             {
-                _players(1) = p;
-                this.CompleteDeployment();
+                _players[1] = p;
+                CompleteDeployment();
             }
             else
             {
                 throw new ApplicationException("You cannot add another player, the game already has two players.");
             }
-
         }
 
         // Assigns each player the opponents grid as the enemy grid. This allows each player
         // to examine the details visable on the opponents sea grid.
-
         private void CompleteDeployment()
         {
-            _players(0).Enemy = new SeaGridAdapter(_players(1).PlayerGrid);
-            _players(1).Enemy = new SeaGridAdapter(_players(0).PlayerGrid);
+            _players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
+            _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
         }
 
         // Shoot will swap between players and check if a player has been killed.
         // It also allows the current player to hit on the enemies grid.
-
         public AttackResult Shoot(int row, int col)
         {
             AttackResult newAttack;
-            int otherPlayer = ((_playerIndex + 1)
-                        % 2);
+            int otherPlayer = (_playerIndex + 1) % 2;
+
             newAttack = Player.Shoot(row, col);
 
-            // Will exit the game when all players ships are destroyed
-            if (_players(otherPlayer).IsDestroyed)
+
+            //Will exit the game when all players ships are destroyed
+            if (_players[otherPlayer].IsDestroyed)
             {
                 newAttack = new AttackResult(ResultOfAttack.GameOver, newAttack.Ship, newAttack.Text, row, col);
             }
 
-            AttackCompleted(this, newAttack);
+            // AttackCompleted(this, newAttack);
             
             // Change player if the last hit was a miss
-            if ((newAttack.Value == ResultOfAttack.Miss))
+            // Old: if ((newAttack.Value == ResultOfAttack.Miss))
+            if (AttackCompleted != null)
+            {
+                AttackCompleted(this, newAttack);
+            }
+
+            //change player if the last hit was a miss
+            if (newAttack.Value == ResultOfAttack.Miss)
             {
                 _playerIndex = otherPlayer;
             }

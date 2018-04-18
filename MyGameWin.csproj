@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('packages\NUnit.3.10.1\build\NUnit.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug-Windows</Configuration>
     <ProjectGuid>{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}</ProjectGuid>
@@ -15,6 +17,8 @@
     <ApplicationIcon>Resources\SwinGame.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Windows|x86' ">
     <Optimize>false</Optimize>
@@ -36,8 +40,43 @@
   <PropertyGroup>
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include=".vs\MyGameMac\xs\UserPrefs.xml" />
+    <Content Include="lib\SwinGame.dll" />
+    <Content Include="lib\SwinGame.dll.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\win64\libcurl.dll" />
+    <Content Include="lib\win64\libeay32.dll" />
+    <Content Include="lib\win64\libFLAC-8.dll" />
+    <Content Include="lib\win64\libfreetype-6.dll" />
+    <Content Include="lib\win64\libjpeg-9.dll" />
+    <Content Include="lib\win64\libmikmod-2.dll" />
+    <Content Include="lib\win64\libmodplug-1.dll" />
+    <Content Include="lib\win64\libogg-0.dll" />
+    <Content Include="lib\win64\libpng16-16.dll" />
+    <Content Include="lib\win64\libSGSDL2.dll" />
+    <Content Include="lib\win64\libtiff-5.dll" />
+    <Content Include="lib\win64\libvorbis-0.dll" />
+    <Content Include="lib\win64\libvorbisfile-3.dll" />
+    <Content Include="lib\win64\libwebp-4.dll" />
+    <Content Include="lib\win64\SGSDK.dll" />
+    <Content Include="lib\win64\smpeg2.dll" />
+    <Content Include="lib\win64\ssleay32.dll" />
+    <Content Include="lib\win64\zlib1.dll" />
+    <Content Include="MyGameMac.csproj" />
+    <Content Include="MyGameMac.sln" />
+    <Content Include="MyGameUnx.csproj" />
+    <Content Include="MyGameUnx.sln" />
+    <Content Include="obj\x86\Debug-Windows\MyGame.exe" />
+    <Content Include="obj\x86\Debug-Windows\MyGame.pdb" />
+    <Content Include="obj\x86\Debug-Windows\MyGameWin.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="obj\x86\Debug-Windows\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\x86\Debug-Windows\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\x86\Debug-Windows\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="src\DeploymentController.cs" />
     <Compile Include="src\DiscoveryController.cs" />
     <Compile Include="src\EndingGameController.cs" />
@@ -66,19 +105,62 @@
     <Compile Include="src\UtilityFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>packages\NUnit.3.10.1\lib\net40\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="SwinGame">
       <HintPath>lib\SwinGame.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".vs\MyGameWin\v14\.suo" />
+    <None Include=".vs\MyGameWin\v15\Server\sqlite3\db.lock" />
+    <None Include=".vs\MyGameWin\v15\Server\sqlite3\storage.ide" />
+    <None Include=".vs\MyGameWin\v15\Server\sqlite3\storage.ide-shm" />
+    <None Include=".vs\MyGameWin\v15\Server\sqlite3\storage.ide-wal" />
+    <None Include=".vs\slnx.sqlite" />
+    <None Include=".vs\VSWorkspaceState.json" />
     <None Include="app.config" />
+    <None Include="Info.plist" />
+    <None Include="lib\cleanlib.sh" />
+    <None Include="lib\cygpath" />
+    <None Include="lib\mac\libSGSDK.dylib" />
+    <None Include="lib\makelib.sh" />
+    <None Include="lib\MonoMacLauncher" />
+    <None Include="lib\sgsdk_source.zip" />
+    <None Include="lib\win64\libSGSDL2.dll.a" />
+    <None Include="MyGameWin.suo" />
+    <None Include="obj\Debug-Mac\monomac_dll_content_processed" />
+    <None Include="obj\Debug-Mac\monomac_version" />
+    <None Include="obj\Debug-Mac\MyGameMac.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug-Unix\MyGameUnx.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\MyGameMac.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\MyGameMac.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\MyGameMac.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\x86\Debug-Windows\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug-Windows\MyGameWin.csproj.CopyComplete" />
+    <None Include="obj\x86\Debug-Windows\MyGameWin.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\x86\Debug-Windows\MyGameWin.csprojResolveAssemblyReference.cache" />
+    <None Include="packages.config" />
+    <None Include="README.md" />
     <None Include="Resources\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <WinLibs Include="lib\win32\*.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="obj\x86\Debug-Windows\TempPE\" />
+  </ItemGroup>
   <Target Name="CopyLibsToOut">
     <Copy SourceFiles="@(WinLibs)" DestinationFolder="$(OutDir)" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.10.1\build\NUnit.props'))" />
+    <Error Condition="!Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
 </Project>

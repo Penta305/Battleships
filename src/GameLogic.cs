@@ -8,23 +8,31 @@ namespace Battleship
     {
         public void Main()
         {
+
             // Opens up a new graphics window
+
+
+            GameController _Main = new GameController();
 
             SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
 
             GameResources.LoadResources();
-            SwinGame.PlayMusic(GameMusic("Background"));
+            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
             do
             {
                 GameController.HandleUserInput();
                 GameController.DrawScreen();
             }
-            while (!SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting);
+
+            // while (!SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting);
+
+
+            while (!SwinGame.WindowCloseRequested() == true | _Main.CurrentState == GameState.Quitting);
 
             SwinGame.StopMusic();
 
             // Free resources and close audio to end the program.
-            
+
             GameResources.FreeResources();
         }
     }

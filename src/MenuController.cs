@@ -37,7 +37,7 @@ namespace Battleship
         private const int GAME_MENU_QUIT_BUTTON = 2;
         private readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
-        
+
         // This handles the processing of the user input for when
         // the main menu is showing
 
@@ -78,14 +78,14 @@ namespace Battleship
         {
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
-                EndCurrentState();
+                GameController.EndCurrentState();
                 return true;
             }
 
             if (SwinGame.MouseClicked(MouseButton.LeftButton))
             {
                 int i;
-                for (i = 0; i <= _menuStructure(menu).Length - 1; i++)
+                for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
                 {
                     if (IsMouseOverMenu(i, level, xOffset))
                     {
@@ -96,7 +96,7 @@ namespace Battleship
 
                 if (level > 0)
                 {
-                    EndCurrentState();
+                    GameController.EndCurrentState();
                 }
             }
 
@@ -144,10 +144,10 @@ namespace Battleship
         private void DrawButtons(int menu, int level, int xOffset)
         {
             int btnTop;
-            Rectangle toDraw;
+            Rectangle toDraw = new Rectangle();
             btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
             int i;
-            for (i = 0; i <= _menuStructure(menu).Length - 1; i++)
+            for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
             {
                 int btnLeft;
                 // CHECK
@@ -157,7 +157,7 @@ namespace Battleship
                 toDraw.Y = btnTop + TEXT_OFFSET;
                 toDraw.Width = BUTTON_WIDTH;
                 toDraw.Height = BUTTON_HEIGHT;
-                SwinGame.DrawTextLines(_menuStructure(menu)(i), MENU_COLOR, Color.Black, GameFont("Menu"), FontAlignment.AlignCenter, toDraw);
+                SwinGame.DrawText(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, toDraw);
                 if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 {
                     SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -185,7 +185,7 @@ namespace Battleship
         {
             int btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
             int btnLeft = MENU_LEFT + BUTTON_SEP * (button + xOffset);
-            return IsMouseInRectangle(btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
+            return UtilityFunctions.IsMouseInRectangle(btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
 
         // If a button has been clicked, perform the associated action
@@ -196,60 +196,91 @@ namespace Battleship
         private void PerformMenuAction(int menu, int button)
         {
             switch (menu)
-            // TODO Implement Case Statement
-            { }
-            // PerformMainMenuAction(button);
-            // PerformSetupMenuAction(button);
-            // PerformGameMenuAction(button);
+            {
+                case MAIN_MENU:
+                    PerformMainMenuAction(button);
+                    break;
+                case SETUP_MENU:
+                    PerformSetupMenuAction(button);
+                    break;
+                case GAME_MENU:
+                    PerformGameMenuAction(button);
+                    break;
+            }
         }
+
 
         // If the main menu was clicked, perform the button's action
 
-        // CHECK
-        // <param name="button">the button pressed</param>
+
         private void PerformMainMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // StartGame();
-            // AddNewState(GameState.AlteringSettings);
-            // AddNewState(GameState.ViewingHighScores);
-            // EndCurrentState();
-            // }
+            {
+                case MAIN_MENU_PLAY_BUTTON:
+                    GameController.StartGame();
+                    break;
+                case MAIN_MENU_SETUP_BUTTON:
+                    GameController.AddNewState(GameState.AlteringSettings);
+                    break;
+                case MAIN_MENU_TOP_SCORES_BUTTON:
+                    GameController.AddNewState(GameState.ViewingHighScores);
+                    break;
+                case MAIN_MENU_QUIT_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+            }
         }
+
 
         // If the setup menu was clicked, perform the button's action
 
-        // CHECK
-        // <param name="button">the button pressed</param>
+
         private void PerformSetupMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // }
-
-            EndCurrentState();
+            {
+                case SETUP_MENU_EASY_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_MEDIUM_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_HARD_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+            }
+            //Always end state - handles exit button as well
+            GameController.EndCurrentState();
         }
+
 
         // If the game menu was clicked, perform the button's action
 
-        // CHECK
-        // <param name="button">the button pressed</param>
+
         private void PerformGameMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // EndCurrentState();
-            // EndCurrentState();
-            // EndCurrentState();
-            // AddNewState(GameState.Quitting);
-            // }
+            {
+                case GAME_MENU_RETURN_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+                case GAME_MENU_SURRENDER_BUTTON:
+                    GameController.EndCurrentState();
+                    //end game menu
+                    GameController.EndCurrentState();
+                    //end game
+                    break;
+                case GAME_MENU_QUIT_BUTTON:
+                    GameController.AddNewState(GameState.Quitting);
+                    break;
+            }
         }
+        //=======================================================
+        //Service provided by Telerik (www.telerik.com)
+        //Conversion powered by Refactoring Essentials.
+        //Twitter: @telerik
+        //Facebook: facebook.com/telerik
+        //=======================================================
     }
 }
