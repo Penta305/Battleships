@@ -6,7 +6,7 @@ namespace Battleship
 {
     public class GameLogic
     {
-        public void Main()
+        public static void Main()
         {
 
             // Opens up a new graphics window

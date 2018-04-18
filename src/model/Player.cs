@@ -13,7 +13,7 @@ namespace Battleship {
     {
 
         protected static Random _Random = new Random();
-        private Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
+        private static Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
         private SeaGrid _playerGrid = new SeaGrid(_Ships);
         private ISeaGrid _enemyGrid;
 
@@ -213,6 +213,11 @@ namespace Battleship {
                     }
                 } while (!placementSuccessful);
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return ((IEnumerable)_Ships).GetEnumerator();
         }
     }
 

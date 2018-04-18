@@ -85,6 +85,12 @@ namespace Battleship
         public static Font GameFont(string font)
         {
             GameResources _Fonts = new GameResources();
+
+            _Fonts._Fonts.Add("ArialLarge", SwinGame.LoadFont("arial.ttf", 80));
+            _Fonts._Fonts.Add("Courier", SwinGame.LoadFont("cour.ttf", 14));
+            _Fonts._Fonts.Add("CourierSmall", SwinGame.LoadFont("cour.ttf", 8));
+            _Fonts._Fonts.Add("Menu", SwinGame.LoadFont("ffaccess.ttf", 8));
+
             return _Fonts._Fonts[font];
         }
 
@@ -95,6 +101,32 @@ namespace Battleship
         public static Bitmap GameImage(string image)
         {
             GameResources _Images = new GameResources();
+
+            _Images._Images.Add("Menu", SwinGame.LoadBitmap("main_page.jpg"));
+            _Images._Images.Add("Discovery", SwinGame.LoadBitmap("discover.jpg"));
+            _Images._Images.Add("Deploy", SwinGame.LoadBitmap("deploy.jpg"));
+
+            // Deployment
+            _Images._Images.Add("LeftRightButton", SwinGame.LoadBitmap("deploy_dir_button_horiz.png"));
+            _Images._Images.Add("UpDownButton", SwinGame.LoadBitmap("deploy_dir_button_vert.png"));
+            _Images._Images.Add("SelectedShip", SwinGame.LoadBitmap("deploy_button_hl.png"));
+            _Images._Images.Add("PlayButton", SwinGame.LoadBitmap("deploy_play_button.png"));
+            _Images._Images.Add("RandomButton", SwinGame.LoadBitmap("deploy_randomize_button.png"));
+
+            // Ships
+            int i;
+            for (i = 1; (i <= 5); i++)
+            {
+                _Images._Images.Add(("ShipLR" + i), SwinGame.LoadBitmap("ship_deploy_horiz_"
+                                + (i + ".png")));
+                _Images._Images.Add(("ShipUD" + i), SwinGame.LoadBitmap("ship_deploy_vert_"
+                                + (i + ".png")));
+            }
+
+            // Explosions
+            _Images._Images.Add("Explosion", SwinGame.LoadBitmap("explosion.png"));
+            _Images._Images.Add("Splash", SwinGame.LoadBitmap("splash.png"));
+
             return _Images._Images[image];
         }
 
@@ -105,6 +137,15 @@ namespace Battleship
         public static SoundEffect GameSound(string sound)
         {
             GameResources _Sounds = new GameResources();
+
+            _Sounds._Sounds.Add("Error", SwinGame.LoadSoundEffect("error.wav"));
+            _Sounds._Sounds.Add("Hit", SwinGame.LoadSoundEffect("hit.wav"));
+            _Sounds._Sounds.Add("Sink", SwinGame.LoadSoundEffect("sink.wav"));
+            _Sounds._Sounds.Add("Siren", SwinGame.LoadSoundEffect("siren.wav"));
+            _Sounds._Sounds.Add("Miss", SwinGame.LoadSoundEffect("watershot.wav"));
+            _Sounds._Sounds.Add("Winner", SwinGame.LoadSoundEffect("winner.wav"));
+            _Sounds._Sounds.Add("Lose", SwinGame.LoadSoundEffect("lose.wav"));
+
             return _Sounds._Sounds[sound];
         }
 
@@ -115,6 +156,7 @@ namespace Battleship
         public static Music GameMusic(string music)
         {
             GameResources _Music = new GameResources();
+            _Music._Music.Add("Background", SwinGame.LoadMusic("horrordrone.mp3"));
             return _Music._Music[music];
         }
 
