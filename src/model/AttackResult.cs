@@ -1,3 +1,4 @@
+
 namespace Battleship
 {
     public class AttackResult
