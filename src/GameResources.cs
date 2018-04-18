@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
-    public class GameResources {
+    public static class GameResources {
 
         private static void LoadFonts() {
             SwinGame.LoadFontNamed("ArialLarge", "arial.ttf", 80);

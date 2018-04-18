@@ -7,7 +7,7 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
-    public class HighScoreController
+    public static class HighScoreController
     {
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;
@@ -29,8 +29,8 @@ namespace Battleship
             }
         }
 
-        private List<Score> _Scores = new List<Score>();
-        private void LoadScores()
+        private static List<Score> _Scores = new List<Score>();
+        private static void LoadScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
@@ -53,7 +53,7 @@ namespace Battleship
             input.Close();
         }
 
-        private void SaveScores()
+        private static void SaveScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
@@ -68,7 +68,7 @@ namespace Battleship
             output.Close();
         }
 
-        public void DrawHighScores()
+        public static void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
             const int SCORES_TOP = 80;
@@ -92,7 +92,7 @@ namespace Battleship
             }
         }
 
-        public void HandleHighScoreInput()
+        public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.EscapeKey) || SwinGame.KeyTyped(KeyCode.ReturnKey))
             {
@@ -100,7 +100,7 @@ namespace Battleship
             }
         }
 
-        public void ReadHighScore(int value)
+        public static void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;
             if (_Scores.Count == 0)

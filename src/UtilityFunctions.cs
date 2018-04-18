@@ -7,7 +7,7 @@ using SwinGameSDK;
 // '' </summary>
 namespace Battleship
 {
-    class UtilityFunctions
+    public static class UtilityFunctions
     {
 
         public const int FIELD_TOP = 122;
@@ -263,7 +263,7 @@ namespace Battleship
 
         }
 
-        private string _message;
+        private static string _message;
 
         // '' <summary>
         // '' The message to display
