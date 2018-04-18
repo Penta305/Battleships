@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using SwinGameSDK;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 namespace Battleship {
 
     // Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if

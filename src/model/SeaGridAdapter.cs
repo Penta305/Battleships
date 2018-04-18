@@ -18,7 +18,7 @@ namespace Battleship
             _MyGrid.Changed += new EventHandler(MyGrid_Changed);
         }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
         // MyGrid_Changed causes the grid to be redrawn by raising a changed event
 
@@ -33,7 +33,7 @@ namespace Battleship
         // TODO: FIXME: Start region was specified here - Elijah
         // #Region "ISeaGrid Members"
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
         // Changes the discovery grid. It returns a tile or, if it was a ship,
         // it will return a sea tileWhere there is a ship we will sea water.
 
@@ -52,7 +52,7 @@ namespace Battleship
             }
         }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
         /* TODO: FIXME VB code below- Elijah
         Public ReadOnly Property Item(ByVal x As Integer, ByVal y As Integer) As TileView Implements ISeaGrid.Item
                 Get
