@@ -48,8 +48,8 @@ namespace Battleship {
                     _Ships.Add(name, new Ship(name));
                 }
 
-                _playerGrid = new SeaGrid(_Ships);
             }
+            _playerGrid = new SeaGrid(_Ships);
 
             RandomizeDeployment();
         }
