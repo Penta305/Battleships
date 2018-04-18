@@ -30,6 +30,7 @@ namespace Battleship
         private const int GAME_MENU_QUIT_BUTTON = 2;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
+
         public static void HandleMainMenuInput()
         {
             HandleMenuInput(MAIN_MENU, 0, 0);
@@ -137,48 +138,74 @@ namespace Battleship
         private static void PerformMenuAction(int menu, int button)
         {
             switch (menu)
-            // TODO Implement Case Statement
-            { }
-            // PerformMainMenuAction(button);
-            // PerformSetupMenuAction(button);
-            // PerformGameMenuAction(button);
+            // CHECK Implement Case Statement
+            {
+                case MAIN_MENU:
+                    PerformMainMenuAction(button);
+                    break;
+                case SETUP_MENU:
+                    PerformSetupMenuAction(button);
+                    break;
+                case GAME_MENU:
+                    PerformGameMenuAction(button);
+                    break;
+            }
         }
 
         private static void PerformMainMenuAction(int button)
         {
-            // TODO Implement Case Statement
+            // CHECK Implement Case Statement
             switch (button)
-            { }
-            // StartGame();
-            // AddNewState(GameState.AlteringSettings);
-            // AddNewState(GameState.ViewingHighScores);
-            // EndCurrentState();
-            // }
+            {
+                case MAIN_MENU_PLAY_BUTTON:
+                    GameController.StartGame();
+                    break;
+                case MAIN_MENU_SETUP_BUTTON:
+                    GameController.AddNewState(GameState.AlteringSettings);
+                    break;
+                case MAIN_MENU_TOP_SCORES_BUTTON:
+                    GameController.AddNewState(GameState.ViewingHighScores);
+                    break;
+                case MAIN_MENU_QUIT_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+            }
         }
 
         private static void PerformSetupMenuAction(int button)
         {
-            // TODO Implement Case Statement
+            // CHECK Implement Case Statement
             switch (button)
-            { }
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // }
-
+            {
+                case SETUP_MENU_EASY_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_MEDIUM_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_HARD_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+            }
             GameController.EndCurrentState();
         }
 
         private static void PerformGameMenuAction(int button)
         {
-            // TODO Implement Case Statement
+            // CHECK Implement Case Statement
             switch (button)
-            { }
-            // EndCurrentState();
-            // EndCurrentState();
-            // EndCurrentState();
-            // AddNewState(GameState.Quitting);
-            // }
+            {
+                case GAME_MENU_RETURN_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+                case GAME_MENU_SURRENDER_BUTTON:
+                    GameController.EndCurrentState();
+                    GameController.EndCurrentState();
+                    break;
+                case GAME_MENU_QUIT_BUTTON:
+                    GameController.AddNewState(GameState.Quitting);
+                    break;
+            }
         }
     }
     //=======================================================

@@ -213,10 +213,10 @@ namespace Battleship
             // Draw the ships
             foreach (Ship s in thePlayer)
             {
-                if (((s == null)
-                            || !s.IsDeployed))
+                if (((s == null) || !s.IsDeployed))
                 {
                     // TODO: Continue For... Warning!!! not translated
+                    continue;
                 }
 
                 rowTop = (top
@@ -227,6 +227,7 @@ namespace Battleship
                             + (((cellGap + cellWidth)
                             * s.Column)
                             + SHIP_GAP));
+
                 if ((s.Direction == Direction.LeftRight))
                 {
                     shipName = ("ShipLR" + s.Size);
