@@ -13,8 +13,8 @@ namespace Battleship {
     {
 
         protected static Random _Random = new Random();
-        private static Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
-        private SeaGrid _playerGrid = new SeaGrid(_Ships);
+        private Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
+        private SeaGrid _playerGrid;
         private ISeaGrid _enemyGrid;
 
         protected BattleShipsGame _game;
@@ -47,6 +47,8 @@ namespace Battleship {
                 {
                     _Ships.Add(name, new Ship(name));
                 }
+
+                _playerGrid = new SeaGrid(_Ships);
             }
 
             RandomizeDeployment();
