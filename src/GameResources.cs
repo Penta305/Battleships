@@ -91,25 +91,25 @@ namespace Battleship
             //return _Music(music);
         }
 
-        private Dictionary<string, Bitmap> _Images = new Dictionary<string, Bitmap>();
+        private static Dictionary<string, Bitmap> _Images = new Dictionary<string, Bitmap>();
 
-        private Dictionary<string, Font> _Fonts = new Dictionary<string, Font>();
+        private static Dictionary<string, Font> _Fonts = new Dictionary<string, Font>();
 
-        private Dictionary<string, SoundEffect> _Sounds = new Dictionary<string, SoundEffect>();
+        private static Dictionary<string, SoundEffect> _Sounds = new Dictionary<string, SoundEffect>();
 
-        private Dictionary<string, Music> _Music = new Dictionary<string, Music>();
+        private static Dictionary<string, Music> _Music = new Dictionary<string, Music>();
 
-        private Bitmap _Background;
+        private static Bitmap _Background;
 
-        private Bitmap _Animation;
+        private static Bitmap _Animation;
 
-        private Bitmap _LoaderFull;
+        private static Bitmap _LoaderFull;
 
-        private Bitmap _LoaderEmpty;
+        private static Bitmap _LoaderEmpty;
 
-        private Font _LoadingFont;
+        private static Font _LoadingFont;
 
-        private SoundEffect _StartSound;
+        private static SoundEffect _StartSound;
 
         // '' <summary>
         // '' The Resources Class stores all of the Games Media Resources, such as Images, Fonts

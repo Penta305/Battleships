@@ -7,7 +7,7 @@ namespace Battleship
 {
     public class DiscoveryController
     {
-        public void HandleDiscoveryInput()
+        public static void HandleDiscoveryInput()
         {
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
@@ -20,7 +20,7 @@ namespace Battleship
             }
         }
 
-        private void DoAttack()
+        private static void DoAttack()
         {
             Point2D mouse;
             mouse = SwinGame.MousePosition();
@@ -36,7 +36,7 @@ namespace Battleship
             }
         }
 
-        public void DrawDiscovery()
+        public static void DrawDiscovery()
         {
             const int SCORES_LEFT = 172;
             const int SHOTS_TOP = 157;
