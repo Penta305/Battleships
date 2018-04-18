@@ -25,13 +25,13 @@ namespace Battleship
             Point2D mouse;
             mouse = SwinGame.MousePosition();
             int row, col;
-            row = Convert.ToInt32(Math.Floor((mouse.Y - FIELD_TOP) / (CELL_HEIGHT + CELL_GAP)));
-            col = Convert.ToInt32(Math.Floor((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP)));
-            if (row >= 0 & row < HumanPlayer.EnemyGrid.Height)
+            row = Convert.ToInt32(Math.Floor((mouse.Y - UtilityFunctions.FIELD_TOP) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
+            col = Convert.ToInt32(Math.Floor((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP)));
+            if (row >= 0 & row < GameController.HumanPlayer.EnemyGrid.Height)
             {
-                if (col >= 0 & col < HumanPlayer.EnemyGrid.Width)
+                if (col >= 0 & col < GameController.HumanPlayer.EnemyGrid.Width)
                 {
-                    Attack(row, col);
+                    GameController.Attack(row, col);
                 }
             }
         }
@@ -44,18 +44,18 @@ namespace Battleship
             const int SPLASH_TOP = 256;
             if ((SwinGame.KeyDown(KeyCode.LeftShiftKey) | SwinGame.KeyDown(KeyCode.RightShiftKey)) & SwinGame.KeyDown(KeyCode.CKey))
             {
-                DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, true);
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, true);
             }
             else
             {
-                DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, false);
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, false);
             }
 
-            DrawSmallField(HumanPlayer.PlayerGrid, HumanPlayer);
-            DrawMessage();
-            SwinGame.DrawText(HumanPlayer.Shots.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
-            SwinGame.DrawText(HumanPlayer.Hits.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, HITS_TOP);
-            SwinGame.DrawText(HumanPlayer.Missed.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
+            UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
+            UtilityFunctions.DrawMessage();
+            SwinGame.DrawText(GameController.HumanPlayer.Shots.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
+            SwinGame.DrawText(GameController.HumanPlayer.Hits.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, HITS_TOP);
+            SwinGame.DrawText(GameController.HumanPlayer.Missed.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
         }
     }
     //=======================================================
