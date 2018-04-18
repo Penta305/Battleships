@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-// '' <summary>
 // '' The SeaGrid is the grid upon which the ships are deployed.
-// '' </summary>
-// '' <remarks>
-// '' The grid is viewable via the ISeaGrid interface as a read only
-// '' grid. This can be used in conjuncture with the SeaGridAdapter to 
-// '' mask the position of the ships.
-// '' </remarks>
+
+// The grid is viewable via the ISeaGrid interface as a read only
+// grid. This can be used in conjunction with the SeaGridAdapter to 
+// mask the position of the ships.
 
 namespace Battleship
 {
@@ -23,16 +20,9 @@ namespace Battleship
 
         private int _ShipsKilled = 0;
 
-        // '' <summary>
-        // '' The sea grid has changed and should be redrawn.
-        // '' </summary>
+        // The sea grid has changed and should be redrawn.
         public event EventHandler Changed;
 
-        // '' <summary>
-        // '' The width of the sea grid.
-        // '' </summary>
-        // '' <value>The width of the sea grid.</value>
-        // '' <returns>The width of the sea grid.</returns>
         public int Width
         {
             get
@@ -65,10 +55,8 @@ namespace Battleship
     {
     }
 
+    // AllDeployed checks whether or not all the ships have been deployed
 
-    // '' <summary>
-    // '' AllDeployed checks if all the ships are deployed
-    // '' </summary>
     public bool AllDeployed
     {
         get
@@ -88,7 +76,7 @@ namespace Battleship
 
     public DummyClass(Dictionary<ShipName, Ship> ships)
     {
-        // fill array with empty Tiles
+        // Fill array with empty Tiles
         int i;
         for (i = 0; (i
                     <= (Width - 1)); i++)
@@ -104,13 +92,8 @@ namespace Battleship
         _Ships = ships;
     }
 
-    // '' <summary>
-    // '' MoveShips allows for ships to be placed on the seagrid
-    // '' </summary>
-    // '' <param name="row">the row selected</param>
-    // '' <param name="col">the column selected</param>
-    // '' <param name="ship">the ship selected</param>
-    // '' <param name="direction">the direction the ship is going</param>
+    // MoveShips allows for ships to be placed on the seagrid
+
     public void MoveShip(int row, int col, ShipName ship, Direction direction)
     {
         Ship newShip = _Ships[ship];
@@ -118,13 +101,6 @@ namespace Battleship
         AddShip(row, col, direction, newShip);
     }
 
-    // '' <summary>
-    // '' AddShip add a ship to the SeaGrid
-    // '' </summary>
-    // '' <param name="row">row coordinate</param>
-    // '' <param name="col">col coordinate</param>
-    // '' <param name="direction">direction of ship</param>
-    // '' <param name="newShip">the ship</param>
     private void AddShip(int row, int col, Direction direction, Ship newShip)
     {
         try
@@ -145,7 +121,7 @@ namespace Battleship
                 dCol = 0;
             }
 
-            // place ship's tiles in array and into ship object
+            // Place ship's tiles in an array and into the ship object
             int i;
             for (i = 0; (i
                         <= (size - 1)); i++)
@@ -168,7 +144,7 @@ namespace Battleship
         catch (Exception e)
         {
             newShip.Remove();
-            // if fails remove the ship
+            // If it fails, remove the ship
             throw new ApplicationException(e.Message);
         }
         finally
@@ -178,18 +154,14 @@ namespace Battleship
 
     }
 
-    // '' <summary>
-    // '' HitTile hits a tile at a row/col, and whatever tile has been hit, a
-    // '' result will be displayed.
-    // '' </summary>
-    // '' <param name="row">the row at which is being shot</param>
-    // '' <param name="col">the cloumn at which is being shot</param>
-    // '' <returns>An attackresult (hit, miss, sunk, shotalready)</returns>
+    // HitTile hits a tile at a row/col and displays a result depending on
+    // what was hit
+
     public AttackResult HitTile(int row, int col)
     {
         try
         {
-            // tile is already hit
+            // Tile has already been hit
             if (_GameTiles(row, col).Shot)
             {
                 return new AttackResult(ResultOfAttack.ShotAlready, ("have already attacked ["
@@ -198,13 +170,13 @@ namespace Battleship
             }
 
             _GameTiles(row, col).Shoot();
-            // there is no ship on the tile
+            // There is no ship on the tile
             if ((_GameTiles(row, col).Ship == null))
             {
                 return new AttackResult(ResultOfAttack.Miss, "missed", row, col);
             }
 
-            // all ship's tiles have been destroyed
+            // All ship's tiles have been destroyed
             if (_GameTiles(row, col).Ship.IsDestroyed)
             {
                 _GameTiles(row, col).Shot = true;
@@ -212,7 +184,7 @@ namespace Battleship
                 return new AttackResult(ResultOfAttack.Destroyed, _GameTiles(row, col).Ship, "destroyed the enemy\'s", row, col);
             }
 
-            // else hit but not destroyed
+            // Else hit but not destroyed
             return new AttackResult(ResultOfAttack.Hit, "hit something!", row, col);
         }
         finally
