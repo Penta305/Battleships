@@ -8,9 +8,10 @@ namespace Battleship
     {
         public void DrawEndOfGame()
         {
-            Rectangle toDraw;
+            GameController _DrawEndOfGame = new GameController();
+            Rectangle toDraw = new Rectangle();
             string whatShouldIPrint;
-            UtilityFunctions.DrawField(GameController.ComputerPlayer.PlayerGrid, GameController.ComputerPlayer, true);
+            UtilityFunctions.DrawField(_DrawEndOfGame.ComputerPlayer.PlayerGrid, _DrawEndOfGame.ComputerPlayer, true);
             UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
             toDraw.X = 0;
             toDraw.Y = 250;

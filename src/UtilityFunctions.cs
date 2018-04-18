@@ -55,7 +55,7 @@ namespace Battleship
         public const int ANIMATION_CELLS = 7;
 
         public const int FRAMES_PER_CELL = 8;
-
+        private List<Sprite> _Animations = new List<Sprite>();
         // '' <summary>
         // '' Determines if the mouse is in a given rectangle.
         // '' </summary>
@@ -209,52 +209,34 @@ namespace Battleship
             // Draw the ships
             foreach (Ship s in thePlayer)
             {
-                if (((s == null)
-                            || !s.IsDeployed))
-                {
-                    // TODO: Continue For... Warning!!! not translated
-                }
+                if (s == null || !s.IsDeployed)
+                    continue;
+                rowTop = top + (cellGap + cellHeight) * s.Row + SHIP_GAP;
+                colLeft = left + (cellGap + cellWidth) * s.Column + SHIP_GAP;
 
-                rowTop = (top
-                            + (((cellGap + cellHeight)
-                            * s.Row)
-                            + SHIP_GAP));
-                colLeft = (left
-                            + (((cellGap + cellWidth)
-                            * s.Column)
-                            + SHIP_GAP));
-                if ((s.Direction == Direction.LeftRight))
+                if (s.Direction == Direction.LeftRight)
                 {
-                    shipName = ("ShipLR" + s.Size);
-                    shipHeight = (cellHeight
-                                - (SHIP_GAP * 2));
-                    shipWidth = (((cellWidth + cellGap)
-                                * s.Size)
-                                - ((SHIP_GAP * 2)
-                                - cellGap));
+                    shipName = "ShipLR" + s.Size;
+                    shipHeight = cellHeight - (SHIP_GAP * 2);
+                    shipWidth = (cellWidth + cellGap) * s.Size - (SHIP_GAP * 2) - cellGap;
                 }
                 else
                 {
-                    // Up down
-                    shipName = ("ShipUD" + s.Size);
-                    shipHeight = (((cellHeight + cellGap)
-                                * s.Size)
-                                - ((SHIP_GAP * 2)
-                                - cellGap));
-                    shipWidth = (cellWidth
-                                - (SHIP_GAP * 2));
+                    //Up down
+                    shipName = "ShipUD" + s.Size;
+                    shipHeight = (cellHeight + cellGap) * s.Size - (SHIP_GAP * 2) - cellGap;
+                    shipWidth = cellWidth - (SHIP_GAP * 2);
                 }
 
                 if (!small)
                 {
-                    SwinGame.DrawBitmap(GameImage(shipName), colLeft, rowTop);
+                    SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
                 }
                 else
                 {
-                    SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
-                    SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                    SwinGame.FillRectangle(_DrawCustomField.SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                    SwinGame.DrawRectangle(_DrawCustomField.SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
                 }
-
             }
 
         }
@@ -280,7 +262,8 @@ namespace Battleship
 
         public static void DrawMessage()
         {
-            SwinGame.DrawText(Message, MESSAGE_COLOR, GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
+            UtilityFunctions _DrawMessage = new UtilityFunctions();
+            SwinGame.DrawText(_DrawMessage.Message, _DrawMessage.MESSAGE_COLOR, GameResources.GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
         }
 
         // '' <summary>
@@ -288,20 +271,23 @@ namespace Battleship
         // '' </summary>
         public static void DrawBackground()
         {
+           
+            GameState CurrentState = new GameState();
+
             switch (CurrentState)
             {
                 case GameState.ViewingMainMenu:
                 case GameState.ViewingGameMenu:
                 case GameState.AlteringSettings:
                 case GameState.ViewingHighScores:
-                    SwinGame.DrawBitmap(GameImage("Menu"), 0, 0);
+                    SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
                     break;
                 case GameState.Discovering:
                 case GameState.EndingGame:
-                    SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0);
+                    SwinGame.DrawBitmap(GameResources.GameImage("Discovery"), 0, 0);
                     break;
                 case GameState.Deploying:
-                    SwinGame.DrawBitmap(GameImage("Deploy"), 0, 0);
+                    SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
                     break;
                 default:
                     SwinGame.ClearScreen();
@@ -320,13 +306,14 @@ namespace Battleship
             UtilityFunctions.AddAnimation(row, col, "Splash");
         }
 
-        private List<Sprite> _Animations = new List<Sprite>();
+        
 
         private static void AddAnimation(int row, int col, string image)
         {
+            UtilityFunctions _AddAnimation = new UtilityFunctions();
             Sprite s;
             Bitmap imgObj;
-            imgObj = GameImage(image);
+            imgObj = GameResources.GameImage(image);
             imgObj.SetCellDetails(40, 40, 3, 3, 7);
             AnimationScript animation;
             animation = SwinGame.LoadAnimationScript("splash.txt");
@@ -338,16 +325,17 @@ namespace Battleship
                         + (row
                         * (CELL_HEIGHT + CELL_GAP)));
             s.StartAnimation("splash");
-            _Animations.Add(s);
+            _AddAnimation._Animations.Add(s);
         }
 
         public static void UpdateAnimations()
         {
+            UtilityFunctions _UpdateAnimation = new UtilityFunctions();
             List<Sprite> ended = new List<Sprite>();
-            foreach (Sprite s in _Animations)
+            foreach (Sprite s in _UpdateAnimation._Animations)
             {
                 SwinGame.UpdateSprite(s);
-                if (s.animationHasEnded)
+                if (s.AnimationHasEnded)
                 {
                     ended.Add(s);
                 }
@@ -356,7 +344,7 @@ namespace Battleship
 
             foreach (Sprite s in ended)
             {
-                _Animations.Remove(s);
+                _UpdateAnimation._Animations.Remove(s);
                 SwinGame.FreeSprite(s);
             }
 
@@ -364,7 +352,8 @@ namespace Battleship
 
         public static void DrawAnimations()
         {
-            foreach (Sprite s in _Animations)
+            UtilityFunctions _DrawAnimation = new UtilityFunctions();
+            foreach (Sprite s in _DrawAnimation._Animations)
             {
                 SwinGame.DrawSprite(s);
             }

@@ -103,7 +103,7 @@ namespace Battleship
         private void DrawButtons(int menu, int level, int xOffset)
         {
             int btnTop;
-            Rectangle toDraw;
+            Rectangle toDraw = new Rectangle();
             btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
             int i;
             for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
@@ -131,60 +131,97 @@ namespace Battleship
         {
             int btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
             int btnLeft = MENU_LEFT + BUTTON_SEP * (button + xOffset);
-            return IsMouseInRectangle(btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
+            return UtilityFunctions.IsMouseInRectangle(btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
 
         private void PerformMenuAction(int menu, int button)
         {
             switch (menu)
-            // TODO Implement Case Statement
-            { }
-            // PerformMainMenuAction(button);
-            // PerformSetupMenuAction(button);
-            // PerformGameMenuAction(button);
+            {
+                case MAIN_MENU:
+                    PerformMainMenuAction(button);
+                    break;
+                case SETUP_MENU:
+                    PerformSetupMenuAction(button);
+                    break;
+                case GAME_MENU:
+                    PerformGameMenuAction(button);
+                    break;
+            }
         }
 
+        /// <summary>
+        /// The main menu was clicked, perform the button's action.
+        /// </summary>
+        /// <param name="button">the button pressed</param>
         private void PerformMainMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // StartGame();
-            // AddNewState(GameState.AlteringSettings);
-            // AddNewState(GameState.ViewingHighScores);
-            // EndCurrentState();
-            // }
+            {
+                case MAIN_MENU_PLAY_BUTTON:
+                    GameController.StartGame();
+                    break;
+                case MAIN_MENU_SETUP_BUTTON:
+                    GameController.AddNewState(GameState.AlteringSettings);
+                    break;
+                case MAIN_MENU_TOP_SCORES_BUTTON:
+                    GameController.AddNewState(GameState.ViewingHighScores);
+                    break;
+                case MAIN_MENU_QUIT_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+            }
         }
 
+        /// <summary>
+        /// The setup menu was clicked, perform the button's action.
+        /// </summary>
+        /// <param name="button">the button pressed</param>
         private void PerformSetupMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // SetDifficulty(AIOption.Hard);
-            // }
-
-            EndCurrentState();
+            {
+                case SETUP_MENU_EASY_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_MEDIUM_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+                case SETUP_MENU_HARD_BUTTON:
+                    GameController.SetDifficulty(AIOption.Hard);
+                    break;
+            }
+            //Always end state - handles exit button as well
+            GameController.EndCurrentState();
         }
 
+        /// <summary>
+        /// The game menu was clicked, perform the button's action.
+        /// </summary>
+        /// <param name="button">the button pressed</param>
         private void PerformGameMenuAction(int button)
         {
-            // TODO Implement Case Statement
             switch (button)
-            { }
-            // EndCurrentState();
-            // EndCurrentState();
-            // EndCurrentState();
-            // AddNewState(GameState.Quitting);
-            // }
+            {
+                case GAME_MENU_RETURN_BUTTON:
+                    GameController.EndCurrentState();
+                    break;
+                case GAME_MENU_SURRENDER_BUTTON:
+                    GameController.EndCurrentState();
+                    //end game menu
+                    GameController.EndCurrentState();
+                    //end game
+                    break;
+                case GAME_MENU_QUIT_BUTTON:
+                    GameController.AddNewState(GameState.Quitting);
+                    break;
+            }
         }
+        //=======================================================
+        //Service provided by Telerik (www.telerik.com)
+        //Conversion powered by Refactoring Essentials.
+        //Twitter: @telerik
+        //Facebook: facebook.com/telerik
+        //=======================================================
     }
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by Refactoring Essentials.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }

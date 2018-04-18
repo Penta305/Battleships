@@ -36,19 +36,20 @@ namespace Battleship
             }
         }
 
-        public void DrawDiscovery()
+        public  void DrawDiscovery()
         {
+            GameController _DrawDiscovery = new GameController();
             const int SCORES_LEFT = 172;
             const int SHOTS_TOP = 157;
             const int HITS_TOP = 206;
             const int SPLASH_TOP = 256;
             if ((SwinGame.KeyDown(KeyCode.LeftShiftKey) | SwinGame.KeyDown(KeyCode.RightShiftKey)) & SwinGame.KeyDown(KeyCode.CKey))
             {
-                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, true);
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, _DrawDiscovery.ComputerPlayer, true);
             }
             else
             {
-                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, false);
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, _DrawDiscovery.ComputerPlayer, false);
             }
 
             UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);

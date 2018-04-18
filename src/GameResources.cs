@@ -182,7 +182,7 @@ namespace Battleship
             int STEPS = 5;
             int BG_X = 279;
             int fullW;
-            Rectangle toDraw;
+            Rectangle toDraw = new Rectangle();
             fullW = (260 * number)/STEPS;
             
             SwinGame.DrawBitmap(_ShowMessage._LoaderEmpty, BG_X, BG_Y);

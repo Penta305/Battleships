@@ -29,7 +29,7 @@ namespace Battleship
             }
         }
 
-        private List<Score> _Scores = new List<Score>;
+        private List<Score> _Scores = new List<Score>();
         private void LoadScores()
         {
             string filename;
@@ -68,7 +68,7 @@ namespace Battleship
             output.Close();
         }
 
-        public static void DrawHighScores()
+        public void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
             const int SCORES_TOP = 80;
@@ -103,6 +103,7 @@ namespace Battleship
 
         public static void ReadHighScore(int value)
         {
+         
             HighScoreController _ReadHighScore = new HighScoreController();
             const int ENTRY_TOP = 500;
             if (_ReadHighScore._Scores.Count == 0)
@@ -119,7 +120,7 @@ namespace Battleship
                 {
                     SwinGame.ProcessEvents();
                     UtilityFunctions.DrawBackground();
-                    HighScoreController.DrawHighScores();
+                    _ReadHighScore.DrawHighScores();
                     SwinGame.DrawText("Name: ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, ENTRY_TOP);
                     SwinGame.RefreshScreen();
                 }
