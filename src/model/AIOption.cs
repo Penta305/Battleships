@@ -1,15 +1,34 @@
-namespace Battleship
+
+using Microsoft.VisualBasic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+// using System.Data;
+using System.Diagnostics;
+/// <summary>
+/// The different AI levels.
+/// </summary>
+public enum AIOption
 {
-    // The different levels of AI difficulty
-    public enum AIOption
-    {
-        // Completely random shooting
-        Easy,
+	/// <summary>
+	/// Easy, total random shooting
+	/// </summary>
+	Easy,
 
-        // Marks squares around hits
-        Medium,
+	/// <summary>
+	/// Medium, marks squares around hits
+	/// </summary>
+	Medium,
 
-        // Same as medium, but removes shots once it misses
-        Hard
-    }
+	/// <summary>
+	/// As medium, but removes shots once it misses
+	/// </summary>
+	Hard
 }
+
+//=======================================================
+//Service provided by Telerik (www.telerik.com)
+//Conversion powered by NRefactory.
+//Twitter: @telerik
+//Facebook: facebook.com/telerik
+//=======================================================

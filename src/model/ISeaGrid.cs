@@ -1,40 +1,48 @@
+
+using Microsoft.VisualBasic;
 using System;
-
-namespace Battleship
+using System.Collections;
+using System.Collections.Generic;
+// using System.Data;
+using System.Diagnostics;
+/// <summary>
+/// The ISeaGrid defines the read only interface of a Grid. This
+/// allows each player to see and attack their opponents grid.
+/// </summary>
+public interface ISeaGrid
 {
-    // The ISeaGrid defines the read only interface of a Grid. This
-    // allows each player to see and attack their opponents grid.
-    public interface ISeaGrid
-    {
-        int Width
-        {
-            get;
-        }
-
-        int Height
-        {
-            get;
-        }
-
-        // Indicates that the grid has changed.
-        event EventHandler Changed;
 
 
-        // Provides access to the given row/column
-        // Dylan's Implementation
-		
-        // TileView Item
-        // {
-            // get;
-        // }
-		
-        // Andrew's Implementation
-        TileView Item(int row, int col);
+	int Width { get; }
 
-        // CHECK: Properties don't accept parameters in C#, Change to method?
-        // TileView Item2(int row, int col);
+	int Height { get; }
+	/// <summary>
+	/// Indicates that the grid has changed.
+	/// </summary>
 
-        // Mark the indicated tile as shot.
-        AttackResult HitTile(int row, int col);
-    }
+	event EventHandler Changed;
+	/// <summary>
+	/// Provides access to the given row/column
+	/// </summary>
+	/// <param name="row">the row to access</param>
+	/// <param name="column">the column to access</param>
+	/// <value>what the player can see at that location</value>
+	/// <returns>what the player can see at that location</returns>
+
+	TileView this[int row, int col] { get; }
+
+	/// <summary>
+	/// Mark the indicated tile as shot.
+	/// </summary>
+	/// <param name="row">the row of the tile</param>
+	/// <param name="col">the column of the tile</param>
+	/// <returns>the result of the attack</returns>
+	AttackResult HitTile(int row, int col);
 }
+
+//=======================================================
+//Service provided by Telerik (www.telerik.com)
+//Conversion powered by NRefactory.
+//Twitter: @telerik
+//Facebook: facebook.com/telerik
+//=======================================================
