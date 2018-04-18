@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using SwinGameSDK;
 
-// '' <summary>
-// '' The GameController is responsible for controlling the game,
-// '' managing user input, and displaying the current state of the
-// '' game.
-// '' </summary>
+// The GameController is responsible for controlling the game,
+// managing user input, and displaying the current state of the
+// game.
 
 namespace Battleship
 {
@@ -14,6 +12,9 @@ namespace Battleship
     {
 
         private BattleShipsGame _theGame;
+
+		// CHECK
+        // private Player _human;
         
         private static Player _human;
 
@@ -23,12 +24,9 @@ namespace Battleship
 
         private AIOption _aiSetting;
 
-        // '' <summary>
-        // '' Returns the current state of the game, indicating which screen is
-        // '' currently being used
-        // '' </summary>
-        // '' <value>The current state</value>
-        // '' <returns>The current state</returns>
+        // Returns to the current state of the game, indicating which screen is
+        // currently being used.
+
         public GameState CurrentState
         {
             get
@@ -55,26 +53,22 @@ namespace Battleship
 
         public GameController()
         {
-            // bottom state will be quitting. If player exits main menu then the game is over
+            // Th bottom state will be quitting. If the player exits to the
+            // main menu, then the game will end.
+
             _state.Push(GameState.Quitting);
-            // at the start the player is viewing the main menu
+            
+            // At the start, the player will be viewing the main menu screen.
+
             _state.Push(GameState.ViewingMainMenu);
         }
 
-        // '' <summary>
-        // '' Starts a new game.
-        // '' </summary>
-        // '' <remarks>
-        // '' Creates an AI player based upon the _aiSetting.
-        // '' </remarks>
-       
+        // Checks the game grids for any changes and redraws the screen
+        // if there is
 
-        // '' <summary>
-        // '' Listens to the game grids for any changes and redraws the screen
-        // '' when the grids change
-        // '' </summary>
-        // '' <param name="sender">the grid that changed</param>
-        // '' <param name="args">not used</param>
+        // CHECK
+        // <param name="sender">the grid that changed</param>
+        // <param name="args">not used</param>
         private static void GridChanged(object sender, EventArgs args)
         {
             DrawScreen();
@@ -103,14 +97,13 @@ namespace Battleship
             UtilityFunctions.DrawAnimationSequence();
         }
 
-        // '' <summary>
-        // '' Listens for attacks to be completed.
-        // '' </summary>
-        // '' <param name="sender">the game</param>
-        // '' <param name="result">the result of the attack</param>
-        // '' <remarks>
-        // '' Displays a message, plays sound and redraws the screen
-        // '' </remarks>
+        // Checks for when an attack has been completed. If so, it displays
+        // a message, plays a sound and redraws the screen.
+
+        // CHECK
+        // <param name="sender">the game</param>
+        // <param name="result">the result of the attack</param>
+
         private static void AttackCompleted(object sender, AttackResult result)
         {
             GameController _AttackComplete = new GameController();
@@ -163,6 +156,8 @@ namespace Battleship
             }
         }
 
+        // Starts a new game, and creates an AI player based upon
+        // the _aiSetting currently set
         public static void StartGame()
         {
             GameController _StartGame = new GameController();
@@ -193,9 +188,7 @@ namespace Battleship
             GameController.AddNewState(GameState.Deploying);
 
 
-            // '' <summary>
-            // '' Stops listening to the old game once a new game is started
-            // '' </summary>
+            // Stops listening to the old game once a new game has been started
         }
 
         public static void EndGame()
@@ -208,14 +201,11 @@ namespace Battleship
 
 
 
-        // '' <summary>
-        // '' Completes the deployment phase of the game and
-        // '' switches to the battle mode (Discovering state)
-        // '' </summary>
-        // '' <remarks>
-        // '' This adds the players to the game before switching
-        // '' state.
-        // '' </remarks>
+        // Completes the deployment phase of the game and
+        // switches to the battle mode (Discovering state)
+
+        // This adds the players to the game before switching
+        // state.
         public static void EndDeployment()
         {
             GameController _EndDeployment = new GameController();
@@ -225,14 +215,14 @@ namespace Battleship
             GameController.SwitchState(GameState.Discovering);
         }
 
-        // '' <summary>
-        // '' Gets the player to attack the indicated row and column.
-        // '' </summary>
-        // '' <param name="row">the row to attack</param>
-        // '' <param name="col">the column to attack</param>
-        // '' <remarks>
-        // '' Checks the attack result once the attack is complete
-        // '' </remarks>
+        // Gets the player to attack the indicated row and column.
+
+        // CHECK
+        // <param name="row">the row to attack</param>
+        // <param name="col">the column to attack</param>
+
+        // Checks the attack result once the attack is complete
+
         public static void Attack(int row, int col)
         {
             GameController _Attack = new GameController();
@@ -241,12 +231,9 @@ namespace Battleship
             GameController.CheckAttackResult(result);
         }
 
-        // '' <summary>
-        // '' Gets the AI to attack.
-        // '' </summary>
-        // '' <remarks>
-        // '' Checks the attack result once the attack is complete.
-        // '' </remarks>
+        // Gets the AI to attack.
+        // Checks the attack result once the attack is complete.
+
         private static void AIAttack()
         {
             GameController _AIAttack = new GameController();
@@ -255,14 +242,14 @@ namespace Battleship
             GameController.CheckAttackResult(result);
         }
 
-        // '' <summary>
-        // '' Checks the results of the attack and switches to
-        // '' Ending the Game if the result was game over.
-        // '' </summary>
-        // '' <param name="result">the result of the last
-        // '' attack</param>
-        // '' <remarks>Gets the AI to attack if the result switched
-        // '' to the AI player.</remarks>
+        // Checks the results of the attack and ends the game if the
+        // result was a game over. Get's the AI to attack if the
+        // result switched to the AI player.
+
+        // CHECK
+        // <param name="result">the result of the last
+        // attack</param>
+
         private static void CheckAttackResult(AttackResult result)
         {
             GameController _CheckAttackResult = new GameController();
@@ -281,14 +268,11 @@ namespace Battleship
             }
         }
 
-        // '' <summary>
-        // '' Handles the user SwinGame.
-        // '' </summary>
-        // '' <remarks>
-        // '' Reads key and mouse input and converts these into
-        // '' actions for the game to perform. The actions
-        // '' performed depend upon the state of the game.
-        // '' </remarks>
+        // Handles the user SwinGame.
+        // Reads key and mouse input and converts these into
+        // actions for the game to perform. The actions
+        // performed depend on the current state of the game.
+
         public static void HandleUserInput()
         {
             GameController _HandleUserInput = new GameController();
@@ -326,12 +310,9 @@ namespace Battleship
             UtilityFunctions.UpdateAnimations();
         }
 
-        // '' <summary>
-        // '' Draws the current state of the game to the screen.
-        // '' </summary>
-        // '' <remarks>
-        // '' What is drawn depends upon the state of the game.
-        // '' </remarks>
+        // Draws the current state of the game to the screen.
+        // What is drawn depends on the current state of the game.
+
         public static void DrawScreen()
         {
             GameController _DrawScreen = new GameController();
@@ -371,11 +352,11 @@ namespace Battleship
             SwinGame.RefreshScreen();
         }
 
-        // '' <summary>
-        // '' Move the game to a new state. The current state is maintained
-        // '' so that it can be returned to.
-        // '' </summary>
-        // '' <param name="state">the new game state</param>
+        // Move the game to a new state. The current state is maintained
+        // so that it can be returned to later.
+
+        // CHECK
+        // <param name="state">the new game state</param>
         public static void AddNewState(GameState state)
         {
             GameController _AddNewState = new GameController();
@@ -384,29 +365,28 @@ namespace Battleship
             _AddNewState1.Message = "";
         }
 
-        // '' <summary>
-        // '' End the current state and add in the new state.
-        // '' </summary>
-        // '' <param name="newState">the new state of the game</param>
+        // Ends the current state and adds in the new state.
+
+        // CHECK
+        // <param name="newState">the new state of the game</param>
         public static void SwitchState(GameState newState)
         {
             GameController.EndCurrentState();
             GameController.AddNewState(newState);
         }
 
-        // '' <summary>
-        // '' Ends the current state, returning to the prior state
-        // '' </summary>
+        // Ends the current state and returns to the prior state
+
         public static void EndCurrentState()
         {
             GameController _EndCurrentState = new GameController();
             _EndCurrentState._state.Pop();
         }
 
-        // '' <summary>
-        // '' Sets the difficulty for the next level of the game.
-        // '' </summary>
-        // '' <param name="setting">the new difficulty level</param>
+        // Sets the difficulty for the next level of the game.
+
+        // CHECK
+        // <param name="setting">the new difficulty level</param>
         public static void SetDifficulty(AIOption setting)
         {
             GameController _SetDifficulty = new GameController();

@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Collections;
 using SwinGameSDK;
 
-// '' <summary>
 // '' The SeaGrid is the grid upon which the ships are deployed.
-// '' </summary>
-// '' <remarks>
-// '' The grid is viewable via the ISeaGrid interface as a read only
-// '' grid. This can be used in conjuncture with the SeaGridAdapter to 
-// '' mask the position of the ships.
-// '' </remarks>
+
+// The grid is viewable via the ISeaGrid interface as a read only
+// grid. This can be used in conjunction with the SeaGridAdapter to 
+// mask the position of the ships.
 
 namespace Battleship
 {
@@ -51,16 +48,10 @@ namespace Battleship
         private Dictionary<ShipName, Ship> _Ships;
 
         private int _ShipsKilled = 0;
-        /// <summary>
-        /// The sea grid has changed and should be redrawn.
-        /// </summary>
+
+        // The sea grid has changed and should be redrawn.
         public event EventHandler Changed;
 
-	
-
-        /// <summary>
-        /// ShipsKilled returns the number of ships killed
-        /// </summary>
         public int ShipsKilled
         {
             get { return _ShipsKilled; }
@@ -77,9 +68,7 @@ namespace Battleship
             return _GameTiles[x, y].View; 
         }
 
-        /// <summary>
-        /// AllDeployed checks if all the ships are deployed
-        /// </summary>
+        // AllDeployed checks whether or not all the ships have been deployed
         public bool AllDeployed
         {
             get
@@ -96,9 +85,7 @@ namespace Battleship
             }
         }
 
-        /// <summary>
         /// SeaGrid constructor, a seagrid has a number of tiles stored in an array
-        /// </summary>
         public SeaGrid(Dictionary<ShipName, Ship> ships)
         {
             //fill array with empty Tiles
@@ -114,13 +101,7 @@ namespace Battleship
             _Ships = ships;
         }
 
-        /// <summary>
-        /// MoveShips allows for ships to be placed on the seagrid
-        /// </summary>
-        /// <param name="row">the row selected</param>
-        /// <param name="col">the column selected</param>
-        /// <param name="ship">the ship selected</param>
-        /// <param name="direction">the direction the ship is going</param>
+        // MoveShips allows for ships to be placed on the seagrid
         public void MoveShip(int row, int col, ShipName ship, Direction direction)
         {
             Ship newShip = _Ships[ship];
@@ -164,7 +145,6 @@ namespace Battleship
                     {
                         throw new InvalidOperationException("Ship can't fit on the board");
                     }
-
                     _GameTiles[currentRow, currentCol].Ship = newShip;
 
                     currentCol += dCol;
@@ -178,7 +158,6 @@ namespace Battleship
                 newShip.Remove();
                 //if fails remove the ship
                 throw new ApplicationException(e.Message);
-
             }
             finally
             {
@@ -189,26 +168,22 @@ namespace Battleship
             }
         }
 
-        /// <summary>
-        /// HitTile hits a tile at a row/col, and whatever tile has been hit, a
-        /// result will be displayed.
-        /// </summary>
-        /// <param name="row">the row at which is being shot</param>
-        /// <param name="col">the cloumn at which is being shot</param>
+        // HitTile hits a tile at a row/col and displays a result depending on
+        // what was hit
         /// <returns>An attackresult (hit, miss, sunk, shotalready)</returns>
         public AttackResult HitTile(int row, int col)
         {
             try
             {
-                //tile is already hit
+                // Tile has already been hit
                 if (_GameTiles[row, col].Shot)
                 {
                     return new AttackResult(ResultOfAttack.ShotAlready, "have already attacked [" + col + "," + row + "]!", row, col);
                 }
-
+				
                 _GameTiles[row, col].Shoot();
 
-                //there is no ship on the tile
+                // There is no ship on the tile
                 if (_GameTiles[row, col].Ship == null)
                 {
                     return new AttackResult(ResultOfAttack.Miss, "missed", row, col);

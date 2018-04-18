@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
+    // A Ship has all the details about what ship it is, inluding shipname,
+    // size, number of hits taken and the location. It's able to add tiles,
+    // remove, hits taken and whether or not it's delpoyed or destroyed.
+
     public class Ship
     {
         private ShipName _shipName;
@@ -25,6 +29,7 @@ namespace Battleship
             }
         }
 
+        // The number of cells that the ship occupies
         public int Size
         {
             get
@@ -33,6 +38,7 @@ namespace Battleship
             }
         }
 
+        // The number of hits that the ship has taken
         public int Hits
         {
             get
@@ -57,6 +63,7 @@ namespace Battleship
             }
         }
 
+        // The direction the ship is facing (left/right or up/down)
         public Direction Direction
         {
             get
@@ -69,7 +76,10 @@ namespace Battleship
         {
             _shipName = ship;
             _tiles = new List<Tile>();
+
+            // It gets the ship size from the enumerator
             _sizeOfShip = (int)_shipName;
+
         }
 
         public void AddTile(Tile tile)
@@ -77,6 +87,7 @@ namespace Battleship
             _tiles.Add(tile);
         }
 
+        // Remove clears the tile back to a sea tile
         public void Remove()
         {
             foreach (Tile tile in _tiles)
@@ -92,10 +103,12 @@ namespace Battleship
             _hitsTaken = _hitsTaken + 1;
         }
 
+        // IsDeployed returns if the ship is deployed
         public bool IsDeployed
         {
             get
             {
+                // If a ship is deployed, it has more than 0 tiles
                 return _tiles.Count > 0;
             }
         }
@@ -108,6 +121,8 @@ namespace Battleship
             }
         }
 
+        // Record that the ship is now deployed
+
         internal void Deployed(Direction direction, int row, int col)
         {
             _row = row;
@@ -115,10 +130,4 @@ namespace Battleship
             _direction = direction;
         }
     }
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by Refactoring Essentials.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }

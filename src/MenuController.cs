@@ -4,8 +4,15 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
+    // The menu controller handles the drawing and user interactions
+    // from each menu in the game. This includes the main menu, the
+    // game menu and the settings menu
+
     public class MenuController
     {
+        // The menu structure for the game. These are the text captions
+        // for the menu items
+
         private readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
@@ -30,10 +37,17 @@ namespace Battleship
         private const int GAME_MENU_QUIT_BUTTON = 2;
         private readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
+
+        // This handles the processing of the user input for when
+        // the main menu is showing
+
         public void HandleMainMenuInput()
         {
             HandleMenuInput(MAIN_MENU, 0, 0);
         }
+
+        // This handles the processing of the user input for when
+        // the setup menu is showing
 
         public void HandleSetupMenuInput()
         {
@@ -45,11 +59,21 @@ namespace Battleship
             }
         }
 
+        // This handles the processing of the user input for when
+        // the game menu is showing. The player is able to return
+        // to the game, surrender or quit entirely
+
         public void HandleGameMenuInput()
         {
             HandleMenuInput(GAME_MENU, 0, 0);
         }
 
+        // This handles input for the specified menu.
+
+        // CHECK
+        // <param name="menu">the identifier of the menu being processed</param>
+        // <param name="level">the vertical level of the menu</param>
+        // <param name="xOffset">the xoffset of the menu</param>
         private bool HandleMenuInput(int menu, int level, int xOffset)
         {
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
@@ -81,25 +105,42 @@ namespace Battleship
 
         public void DrawMainMenu()
         {
+            // CHECK
+            // SwinGame.DrawText("Main Menu", Color.White, GameFont("ArialLarge"), 50, 50)
             DrawButtons(MAIN_MENU);
         }
 
         public void DrawGameMenu()
         {
+            // CHECK
+            // SwinGame.DrawText("Paused", Color.White, GameFont("ArialLarge"), 50, 50)
             DrawButtons(GAME_MENU);
         }
 
         public void DrawSettings()
         {
+            // CHECK
+            // SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
             DrawButtons(MAIN_MENU);
             DrawButtons(SETUP_MENU, 1, 1);
         }
+
+        // Draws the buttons associated with a top level menu
 
         private void DrawButtons(int menu)
         {
             DrawButtons(menu, 0, 0);
         }
 
+        // Draws the meny at the indicated level.
+        // The menu text comes from the _menuStructure field. The level
+        // indicates the height of the menu in order to enable the sub
+        // menus. The xOffset repositions the menu horizontally to allow
+        // the submenus to be positioned correctly.
+
+        // <param name="menu">the menu to draw</param>
+        // <param name="level">the level (height) of the menu</param>
+        // <param name="xOffset">the offset of the menu</param>
         private void DrawButtons(int menu, int level, int xOffset)
         {
             int btnTop;
@@ -109,6 +150,8 @@ namespace Battleship
             for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
             {
                 int btnLeft;
+                // CHECK
+                // SwinGame.FillRectangle(Color.White, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT)
                 btnLeft = MENU_LEFT + BUTTON_SEP * (i + xOffset);
                 toDraw.X = btnLeft + TEXT_OFFSET;
                 toDraw.Y = btnTop + TEXT_OFFSET;
@@ -122,11 +165,22 @@ namespace Battleship
             }
         }
 
+        // Determines whether or not the mouse is over one of the buttons in
+        // the main menu
+
+        // CHECK
+        // <param name="button">the index of the button to check</param>
         private bool IsMouseOverButton(int button)
         {
             return IsMouseOverMenu(button, 0, 0);
         }
 
+        // Checks if the mouse is over one of the buttons in a menu
+
+        // CHECK
+        // <param name="button">the index of the button to check</param>
+        // <param name="level">the level of the menu</param>
+        // <param name="xOffset">the xOffset of the menu</param>
         private bool IsMouseOverMenu(int button, int level, int xOffset)
         {
             int btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
@@ -134,6 +188,11 @@ namespace Battleship
             return UtilityFunctions.IsMouseInRectangle(btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
         }
 
+        // If a button has been clicked, perform the associated action
+
+        // CHECK
+        // <param name="menu">the menu that has been clicked</param>
+        // <param name="button">the index of the button that was clicked</param>
         private void PerformMenuAction(int menu, int button)
         {
             switch (menu)
@@ -150,10 +209,10 @@ namespace Battleship
             }
         }
 
-        /// <summary>
-        /// The main menu was clicked, perform the button's action.
-        /// </summary>
-        /// <param name="button">the button pressed</param>
+
+        // If the main menu was clicked, perform the button's action
+
+
         private void PerformMainMenuAction(int button)
         {
             switch (button)
@@ -173,10 +232,10 @@ namespace Battleship
             }
         }
 
-        /// <summary>
-        /// The setup menu was clicked, perform the button's action.
-        /// </summary>
-        /// <param name="button">the button pressed</param>
+
+        // If the setup menu was clicked, perform the button's action
+
+
         private void PerformSetupMenuAction(int button)
         {
             switch (button)
@@ -195,10 +254,10 @@ namespace Battleship
             GameController.EndCurrentState();
         }
 
-        /// <summary>
-        /// The game menu was clicked, perform the button's action.
-        /// </summary>
-        /// <param name="button">the button pressed</param>
+
+        // If the game menu was clicked, perform the button's action
+
+
         private void PerformGameMenuAction(int button)
         {
             switch (button)

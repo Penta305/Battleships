@@ -1,6 +1,8 @@
 
 namespace Battleship
 {
+    // AttackResult gives the result after a shot has been made
+
     public class AttackResult
     {
         private ResultOfAttack _Value;
@@ -17,6 +19,7 @@ namespace Battleship
             }
         }
 
+        // The ship, if any, involved in this result
         public Ship Ship
         {
             get
@@ -25,6 +28,7 @@ namespace Battleship
             }
         }
 
+        // A textual description of the result
         public string Text
         {
             get
@@ -49,6 +53,8 @@ namespace Battleship
             }
         }
 
+        // Set the _Value to the PossibleAttack value
+
         public AttackResult(ResultOfAttack value, string text, int row, int column)
         {
             _Value = value;
@@ -58,10 +64,14 @@ namespace Battleship
             _Column = column;
         }
 
+        // Set the _Value to the PossibleAttack value, and the _Ship to the Ship
+
         public AttackResult(ResultOfAttack value, Ship ship, string text, int row, int column) : this(value, text, row, column)
         {
             _Ship = ship;
         }
+
+        // Displays the textual information about the attack
 
         public override string ToString()
         {
@@ -73,10 +83,4 @@ namespace Battleship
             return Text + " " + _Ship.Name;
         }
     }
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by Refactoring Essentials.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }

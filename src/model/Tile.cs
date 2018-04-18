@@ -2,6 +2,9 @@ using System;
 
 namespace Battleship
 {
+    // Tile knows its location on the grid, if it's a ship and if it has
+    // been shot before
+
     public class Tile
     {
         private readonly int _RowValue;
@@ -9,6 +12,7 @@ namespace Battleship
         private Ship _Ship = null;
         private bool _Shot = false;
 
+        // Indicates whether a tile has been shot
         public bool Shot
         {
             get
@@ -38,6 +42,9 @@ namespace Battleship
             }
         }
 
+        // Ship allows for a tile to check if there is a ship and add a ship
+        // to a tile
+
         public Ship Ship
         {
             get
@@ -62,6 +69,9 @@ namespace Battleship
             }
         }
 
+        // The tile constructor will know where it is on the grid and if
+        // it's a ship
+
         public Tile(int row, int col, Ship ship)
         {
             _RowValue = row;
@@ -69,21 +79,28 @@ namespace Battleship
             _Ship = ship;
         }
 
+        // ClearShip will remove a ship from its tile
+
         public void ClearShip()
         {
             _Ship = null;
         }
 
+        // View is able to tell the grid what the tile is
+
         public TileView View
         {
             get
             {
+                // If there is no ship in the tile
                 if (_Ship == null)
                 {
+                    // and the tile has been hit
                     if (_Shot)
                     {
                         return TileView.Miss;
                     }
+                    // and the tile hasn't been hit
                     else
                     {
                         return TileView.Sea;
@@ -91,10 +108,12 @@ namespace Battleship
                 }
                 else
                 {
+                    // if there is a ship and it has been hit
                     if ((_Shot))
                     {
                         return TileView.Hit;
                     }
+                    // if there is a ship and it hasn't been hit
                     else
                     {
                         return TileView.Ship;
@@ -102,6 +121,9 @@ namespace Battleship
                 }
             }
         }
+
+        // Shoot allows a tile to be shot at and whether the tile has been
+        // hit before
 
         internal void Shoot()
         {
@@ -119,10 +141,4 @@ namespace Battleship
             }
         }
     }
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by Refactoring Essentials.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }

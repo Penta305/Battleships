@@ -1,51 +1,35 @@
 using SwinGameSDK;
 
-// '' <summary>
-// '' The AIPlayer is a type of player. It can readomly deploy ships, it also has the
-// '' functionality to generate coordinates and shoot at tiles
-// '' </summary>
-// ''Public MustInherit Class AIPlayer : Inherits Player
+// The AIPlayer is a type of player. It can randomly deploy ships and it has the
+// functionality to generate coordinates and shoot at tiles
+
+// CHECK
+// Public MustInherit Class AIPlayer : Inherits Player
 namespace Battleship
 {
     public abstract class AIPlayer : Player
     {
-
-        /// <summary>
-        /// Location can store the location of the last hit made by an
-        /// AI Player. The use of which determines the difficulty.
-        /// </summary>
+        // Location can store the location of the last hit made by an
+        // AI Player. The use of which determines the difficulty.
         protected class Location
         {
             private int _Row;
 
             private int _Column;
-            /// <summary>
-            /// The row of the shot
-            /// </summary>
-            /// <value>The row of the shot</value>
-            /// <returns>The row of the shot</returns>
+
             public int Row
             {
                 get { return _Row; }
                 set { _Row = value; }
             }
 
-            /// <summary>
-            /// The column of the shot
-            /// </summary>
-            /// <value>The column of the shot</value>
-            /// <returns>The column of the shot</returns>
             public int Column
             {
                 get { return _Column; }
                 set { _Column = value; }
             }
 
-            /// <summary>
-            /// Sets the last hit made to the local variables
-            /// </summary>
-            /// <param name="row">the row of the location</param>
-            /// <param name="column">the column of the location</param>
+            // Sets the last hit made to the local variables
             public Location(int row, int column)
             {
                 _Column = column;
@@ -75,31 +59,18 @@ namespace Battleship
             }
         }
 
-
         public AIPlayer(BattleShipsGame game) : base(game)
         {
         }
 
-        /// <summary>
-        /// GenerateCoords
-        /// </summary>
-        /// <param name="row">output the row for the next shot</param>
-        /// <param name="column">output the column for the next show</param>
+        // Generate a valid row and column to shoot at
         protected abstract void GenerateCoords(ref int row, ref int column);
 
-        /// <summary>
-        /// The last shot had the following result. Child classes can use this
-        /// to prepare for the next shot.
-        /// </summary>
-        /// <param name="result">The result of the shot</param>
-        /// <param name="row">the row shot</param>
-        /// <param name="col">the column shot</param>
+        // The last shot had the following result. Child classes can use this
+        // to prepare for the next shot.
         protected abstract void ProcessShot(int row, int col, AttackResult result);
 
-        /// <summary>
-        /// The AI takes its attacks until its go is over.
-        /// </summary>
-        /// <returns>The result of the last attack</returns>
+        // The AI keeps attacking until its turn is over.
         public override AttackResult Attack()
         {
             AttackResult result;
@@ -112,18 +83,16 @@ namespace Battleship
                 Delay();
 
                 GenerateCoords(ref row, ref column);
-                //generate coordinates for shot
+                // Generate coordinates for shot
                 result = _game.Shoot(row, column);
-                //take shot
+                // Take shot
                 ProcessShot(row, column, result);
             } while (result.Value != ResultOfAttack.Miss && result.Value != ResultOfAttack.GameOver && !SwinGame.WindowCloseRequested());
 
             return result;
         }
 
-        /// <summary>
-        /// Wait a short period to simulate the think time
-        /// </summary>
+        // Wait a short period to simulate the think time
         private void Delay()
         {
             int i;

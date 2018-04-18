@@ -1,15 +1,15 @@
 namespace Battleship
 {
+    // The different levels of AI difficulty
     public enum AIOption
     {
+        // Completely random shooting
         Easy,
+
+        // Marks squares around hits
         Medium,
+
+        // Same as medium, but removes shots once it misses
         Hard
     }
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by Refactoring Essentials.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }
