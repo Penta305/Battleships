@@ -9,6 +9,7 @@ namespace Battleship
 {
     public static class HighScoreController
     {
+
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;
         private struct Score : IComparable
@@ -30,23 +31,53 @@ namespace Battleship
         }
 
         private static List<Score> _Scores = new List<Score>();
+        public static int Hahaha()
+        {
+            string filename;
+            filename = SwinGame.PathToResource("highscores.txt");
+            StreamReader input;
+            input = new StreamReader(filename);
+            StreamReader input1;
+            input1 = new StreamReader(filename);
+            string temp;
+            List<string> temp2 = new List<string>();
+            while (input1.ReadLine()!= "")
+            {
+                temp = input.ReadLine();
+                temp2.Add(temp);
+            }
+            
+            
+            return temp2.Count;
+        }
         private static void LoadScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
             StreamReader input;
             input = new StreamReader(filename);
-            int numScores;
-            numScores = Convert.ToInt32(input.ReadLine());
+            StreamReader input1;
+            input1 = new StreamReader(filename);
+            StreamReader input2;
+            input2 = new StreamReader(filename);
+            string temp;
+            List<string> temp2 = new List<string>();
+            while (input1.ReadLine() != "")
+            {
+                temp = input.ReadLine();
+                temp2.Add(temp);
+            }
+
+            int numScores = temp2.Count;
             _Scores.Clear();
             int i;
-            for (i = 1; i <= numScores; i++)
+            for (i = 0; i < numScores; i++)
             {
                 Score s;
                 string line;
-                line = input.ReadLine();
-                s.Name = line.Substring(0, NAME_WIDTH);
-                s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
+                line = input2.ReadLine();
+                s.Name = line.Substring(0, line.IndexOf(":"));
+                s.Value = Convert.ToInt32(line.Substring(line.IndexOf(":")+1));
                 _Scores.Add(s);
             }
 
@@ -62,7 +93,7 @@ namespace Battleship
             output.WriteLine(_Scores.Count);
             foreach (Score s in _Scores)
             {
-                output.WriteLine(s.Name + s.Value);
+                output.WriteLine(s.Name +":" +s.Value);
             }
 
             output.Close();

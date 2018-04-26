@@ -111,7 +111,7 @@ public abstract class AIPlayer : Player
 
 		//keep hitting until a miss
 		do {
-			Delay();
+		
 
 			GenerateCoords(ref row, ref column);
 			//generate coordinates for shot
@@ -130,11 +130,9 @@ public abstract class AIPlayer : Player
 	{
 		int i = 0;
 		for (i = 0; i <= 150; i++) {
-			//Dont delay if window is closed
-			if (SwinGame.WindowCloseRequested())
-				return;
-
-			SwinGame.Delay(5);
+            //Dont delay if window is closed
+            if (SwinGame.WindowCloseRequested())
+                return;
 			SwinGame.ProcessEvents();
 			SwinGame.RefreshScreen();
 		}
