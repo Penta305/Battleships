@@ -147,8 +147,8 @@ namespace Battleship
             SwinGame.RefreshScreen();
             SwinGame.ProcessEvents();
 
-            //_Animation = SwinGame.LoadBitmap(SwinGame.PathToResource("SwinGameAni.jpg", ResourceKind.BitmapResource));
-            //SwinGame.LoadBitmapNamed("loadBitmap", SwinGame.PathToResource("SwinGameAni.jpg", ResourceKind.BitmapResource));
+            _Animation = SwinGame.LoadBitmap(SwinGame.PathToResource("SwinGameAni.jpg", ResourceKind.BitmapResource));
+            SwinGame.LoadBitmapNamed("loadBitmap", SwinGame.PathToResource("SwinGameAni.jpg", ResourceKind.BitmapResource));
             //SwinGame.Animation
 
             SwinGame.LoadFontNamed("LoadingFont", "arial.ttf", 12);
@@ -167,7 +167,7 @@ namespace Battleship
             int i;
             for (i = 0; (i
                         <= (ANI_CELL_COUNT - 1)); i++) {
-                //SwinGame.DrawBitmap("", 0, 0);
+                SwinGame.DrawBitmap("loadBackground", 0, 0);
                 SwinGame.Delay(20);
                 SwinGame.RefreshScreen();
                 SwinGame.ProcessEvents();
@@ -190,6 +190,34 @@ namespace Battleship
             SwinGame.DrawBitmap(SwinGame.BitmapNamed("LoaderEmpty"), BG_X, BG_Y);
             //SwinGame.DrawCell(SwinGame.BitmapNamed("LoaderFull"), 0, BG_X, BG_Y);
             //SwinGame.DrawBitmap(SwinGame.BitmapNamed("LoaderFull"), 0, 0, fullW, 66, BG_X, BG_Y);
+            /*
+            DrawingOptions opt = new DrawingOptions();
+            //opt = DrawingOptionsConfiguration.OptionPartBmp(BG_X, BG_Y, fullW, 200);
+            //DrawingOptionsConfiguration.OptionPartBmp(BG_X, BG_Y, fullW, 200);
+            Rectangle asdf = new Rectangle
+            {
+                X = BG_X,
+                Y = BG_Y,
+                Height = 200,
+                Width = fullW
+            };
+            opt.Part = asdf;
+
+
+            SwinGame.DrawBitmap("LoaderFull", BG_X, BG_Y, opt);
+            */
+            // Silly Implementation
+
+            Rectangle easyLoad = new Rectangle
+            {
+                X = BG_X + 20,
+                Y = BG_Y + 20,
+                Height = 15,
+                Width = (200 * number / STEPS)
+            };
+            SwinGame.FillRectangle(Color.Pink, easyLoad);
+            SwinGame.Delay(200);
+
             toDraw.X = TX;
             toDraw.Y = TY;
             toDraw.Width = TW;
