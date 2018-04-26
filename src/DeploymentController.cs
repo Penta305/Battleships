@@ -68,6 +68,11 @@ namespace Battleship
                 _currentDirection = Direction.LeftRight;
             }
 
+            if (SwinGame.KeyTyped(KeyCode.RKey))
+            {
+                GameController.HumanPlayer.RandomizeDeployment();
+            }
+
             if (SwinGame.MouseClicked(MouseButton.LeftButton))
             {
                 ShipName selected;
