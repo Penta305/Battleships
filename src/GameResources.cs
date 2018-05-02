@@ -54,31 +54,19 @@ namespace Battleship
             SwinGame.LoadMusicNamed("Background", "horrordrone.mp3");
         }
 
-        // '' <summary>
-        // '' Gets a Font Loaded in the Resources
-        // '' </summary>
-        // '' <param name="font">Name of Font</param>
-        // '' <returns>The Font Loaded with this Name</returns>
+        // Gets a Font currently loaded in the Resources
         public static Font GameFont(string font) {
             //return _Fonts(font);
             return SwinGame.FontNamed(font);
         }
 
-        // '' <summary>
-        // '' Gets an Image loaded in the Resources
-        // '' </summary>
-        // '' <param name="image">Name of image</param>
-        // '' <returns>The image loaded with this name</returns>
+        // Gets an Image currently loaded in the Resources
         public static Bitmap GameImage(string image) {
             //return _Images(image);
             return SwinGame.BitmapNamed(image);
         }
 
-        // '' <summary>
-        // '' Gets an sound loaded in the Resources
-        // '' </summary>
-        // '' <param name="sound">Name of sound</param>
-        // '' <returns>The sound with this name</returns>
+        // Gets an sound currently loaded in the Resources
         public static SoundEffect GameSound(string sound) {
             //return _Sounds(sound);
             return SwinGame.SoundEffectNamed(sound);
@@ -114,10 +102,8 @@ namespace Battleship
 
         private static SoundEffect _StartSound;
 
-        // '' <summary>
-        // '' The Resources Class stores all of the Games Media Resources, such as Images, Fonts
-        // '' Sounds, Music.
-        // '' </summary>
+        // The Resources Class stores all of the games media resources, such as images,
+        // fonts, sounds, and music.
         public static void LoadResources() {
             int width;
             int height;
