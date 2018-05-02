@@ -6,7 +6,7 @@ namespace Battleship
 {
     public static class MenuController
     {
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT", "SHIPS" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string[] { "One", "Two", "Three", "Four", "Five" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD", "CLASSIC", "SPACE" }};
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
         private const int MENU_GAP = 0;
@@ -17,21 +17,16 @@ namespace Battleship
         private const int MAIN_MENU = 0;
         private const int GAME_MENU = 1;
         private const int SETUP_MENU = 2;
-        private const int SHIPS_MENU = 3;
         private const int MAIN_MENU_PLAY_BUTTON = 0;
         private const int MAIN_MENU_SETUP_BUTTON = 1;
         private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
         private const int MAIN_MENU_QUIT_BUTTON = 3;
-        private const int MAIN_MENU_SHIPS_BUTTON = 4;
         private const int SETUP_MENU_EASY_BUTTON = 0;
         private const int SETUP_MENU_MEDIUM_BUTTON = 1;
         private const int SETUP_MENU_HARD_BUTTON = 2;
-        private const int SETUP_MENU_EXIT_BUTTON = 3;
-        private const int SHIP_MENU_ONE_BUTTON = 0;
-        private const int SHIP_MENU_TWO_BUTTON = 1;
-        private const int SHIP_MENU_THREE_BUTTON = 2;
-        private const int SHIP_MENU_FOUR_BUTTON = 3;
-        private const int SHIP_MENU_FIVE_BUTTON = 4;
+        private const int SETUP_MENU_CLASSIC_THEME_BUTTON = 3;
+        private const int SETUP_MENU_SPACE_THEME_BUTTON = 4;
+        private const int SETUP_MENU_EXIT_BUTTON = 5;
         private const int GAME_MENU_RETURN_BUTTON = 0;
         private const int GAME_MENU_SURRENDER_BUTTON = 1;
         private const int GAME_MENU_QUIT_BUTTON = 2;
@@ -52,16 +47,7 @@ namespace Battleship
                 HandleMenuInput(MAIN_MENU, 0, 0);
             }
         }
-
-        public static void HandleShipsMenuInput()
-        {
-            bool handled;
-            handled = HandleMenuInput(SHIPS_MENU, 1, 1);
-            if (!handled)
-            {
-                HandleMenuInput(MAIN_MENU, 0, 0);
-            }
-        }
+      
 
         public static void HandleGameMenuInput()
         {
@@ -100,8 +86,6 @@ namespace Battleship
         public static void DrawMainMenu()
         {
             DrawButtons(MAIN_MENU);
-            // DEBUG:
-            // DrawText(string.Format("Ship selected: {0}", GameController.PlayableShips.Count), Color.HotPink, 100, 100);
         }
 
         public static void DrawGameMenu()
@@ -114,12 +98,7 @@ namespace Battleship
             DrawButtons(MAIN_MENU);
             DrawButtons(SETUP_MENU, 1, 1);
         }
-
-        public static void DrawShipsMenu()
-        {
-            DrawButtons(MAIN_MENU);
-            DrawButtons(SHIPS_MENU, 1, 1);
-        }
+      
 
         private static void DrawButtons(int menu)
         {
@@ -174,9 +153,6 @@ namespace Battleship
                 case GAME_MENU:
                     PerformGameMenuAction(button);
                     break;
-                case SHIPS_MENU:
-                    PerformShipMenuAction(button);
-                    break;
             }
         }
 
@@ -197,9 +173,6 @@ namespace Battleship
                 case MAIN_MENU_QUIT_BUTTON:
                     GameController.AddNewState(GameState.Quitting); ;
                     break;
-                case MAIN_MENU_SHIPS_BUTTON:
-                    GameController.AddNewState(GameState.AlteringShipSettings);
-                    break;
             }
         }
 
@@ -211,19 +184,24 @@ namespace Battleship
                 case SETUP_MENU_EASY_BUTTON:
                     GameController.SetDifficulty(AIOption.Easy);
                     break;
+                    
                 case SETUP_MENU_MEDIUM_BUTTON:
                     GameController.SetDifficulty(AIOption.Medium);
                     break;
                 case SETUP_MENU_HARD_BUTTON:
                     GameController.SetDifficulty(AIOption.Hard);
+
+                    break;
+                case SETUP_MENU_CLASSIC_THEME_BUTTON:
+                    
+                    Audio.PlaySoundEffect(GameResources.GameSound("Hit"));
+                    break;
+                case SETUP_MENU_SPACE_THEME_BUTTON:
+                    GameResources.FreeResources();
+
+                    Audio.PlaySoundEffect(GameResources.GameSound("Hit"));
                     break;
             }
-            GameController.EndCurrentState();
-        }
-
-        private static void PerformShipMenuAction(int button)
-        {
-            GameController.SetShips(button + 1);
             GameController.EndCurrentState();
         }
 
@@ -245,6 +223,8 @@ namespace Battleship
             }
         }
     }
+
+ 
     //=======================================================
     //Service provided by Telerik (www.telerik.com)
     //Conversion powered by Refactoring Essentials.

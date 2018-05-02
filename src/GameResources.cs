@@ -12,7 +12,7 @@ namespace Battleship
             SwinGame.LoadFontNamed("Menu", "ffaccess.ttf", 8);
         }
 
-        private static void LoadImages() {
+        public static void LoadImages() {
             // Backgrounds
             SwinGame.LoadBitmapNamed("Menu", "main_page.jpg");
             SwinGame.LoadBitmapNamed("Discovery", "discover.jpg");
@@ -37,7 +37,7 @@ namespace Battleship
             SwinGame.LoadBitmapNamed("Splash", "splash.png");
         }
 
-        private static void LoadSounds() {
+        public static void LoadSounds() {
             SwinGame.LoadSoundEffectNamed("Error", "error.wav");
             SwinGame.LoadSoundEffectNamed("Hit", "hit.wav");
             SwinGame.LoadSoundEffectNamed("Sink", "sink.wav");
@@ -46,7 +46,7 @@ namespace Battleship
             SwinGame.LoadSoundEffectNamed("Winner", "winner.wav");
             SwinGame.LoadSoundEffectNamed("Lose", "lose.wav");
         }
-
+        
         private static void LoadMusic() {
             SwinGame.LoadMusicNamed("Background", "horrordrone.mp3");
         }
@@ -81,7 +81,7 @@ namespace Battleship
             return SwinGame.SoundEffectNamed(sound);
         }
 
-        // '' <summary>
+        // '' <summary>1
         // '' Gets the music loaded in the Resources
         // '' </summary>
         // '' <param name="music">Name of music</param>
@@ -261,7 +261,7 @@ namespace Battleship
             GameResources.NewTransparentColorImage(imageName, fileName, transColor);
         }
 
-        private static void NewSound(string soundName, string filename) {
+        public static void NewSound(string soundName, string filename) {
             _Sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
