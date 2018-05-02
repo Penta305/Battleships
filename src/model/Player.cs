@@ -41,12 +41,12 @@ public class Player : IEnumerable<Ship>
 		set { _enemyGrid = value; }
 	}
 
-	public Player(BattleShipsGame controller, Dictionary<ShipName, Ship> ships)
-	{
-        _Ships = ships;
+	//public Player(BattleShipsGame controller, Dictionary<ShipName, Ship> ships)
+	//{
+ //       _Ships = ships;
 
-        InitializePlayer(controller);
-	}
+ //       InitializePlayer(controller);
+	//}
 
     public Player(BattleShipsGame controller)
     {
