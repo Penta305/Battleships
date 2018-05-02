@@ -6,17 +6,15 @@ using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
 
-/// <summary>
-/// The AIMediumPlayer is a type of AIPlayer where it will try and destroy a ship
-/// if it has found a ship
-/// </summary>
+// The AIMediumPlayer is the medium difficulty AI, which is designed to
+// try and destroy ships once they've been found.
+
 public class AIMediumPlayer : AIPlayer
 {
-	/// <summary>
-	/// Private enumarator for AI states. currently there are two states,
-	/// the AI can be searching for a ship, or if it has found a ship it will
-	/// target the same ship
-	/// </summary>
+    // Private enumerator for AI states. Currently there are two states;
+    // the AI can be searching for a ship, or if it has found a ship it
+    // will continue to target it.
+
 	private enum AIStates
 	{
 		Searching,
@@ -30,18 +28,15 @@ public class AIMediumPlayer : AIPlayer
 	{
 	}
 
-	/// <summary>
-	/// GenerateCoordinates should generate random shooting coordinates
-	/// only when it has not found a ship, or has destroyed a ship and
-	/// needs new shooting coordinates
-	/// </summary>
-	/// <param name="row">the generated row</param>
-	/// <param name="column">the generated column</param>
+    // GenerateCoords should generrate random shooting coordinates only
+    // when it is yet to locate a ship, or has just destroyed a ship and
+    // needs new coordinates.
+
 	protected override void GenerateCoords(ref int row, ref int column)
 	{
 		do {
-			//check which state the AI is in and uppon that choose which coordinate generation
-			//method will be used.
+            // Check which state the AI is in to decide with coordinate
+            // generation method should be used.
 			switch (_CurrentState) {
 				case AIStates.Searching:
 					SearchCoords(ref row, ref column);
@@ -56,12 +51,9 @@ public class AIMediumPlayer : AIPlayer
 		//while inside the grid and not a sea tile do the search
 	}
 
-	/// <summary>
-	/// TargetCoords is used when a ship has been hit and it will try and destroy
-	/// this ship
-	/// </summary>
-	/// <param name="row">row generated around the hit tile</param>
-	/// <param name="column">column generated around the hit tile</param>
+    // TargetCoords is used once a ship has been hit and it will then try
+    // to destory said ship.
+
 	private void TargetCoords(ref int row, ref int column)
 	{
 		Location l = _Targets.Pop();
@@ -72,25 +64,18 @@ public class AIMediumPlayer : AIPlayer
 		column = l.Column;
 	}
 
-	/// <summary>
-	/// SearchCoords will randomly generate shots within the grid as long as its not hit that tile already
-	/// </summary>
-	/// <param name="row">the generated row</param>
-	/// <param name="column">the generated column</param>
+    // SearchCoords will randomly generate shots within the grid as long
+    // as it hasn't already hit that tile.
+
 	private void SearchCoords(ref int row, ref int column)
 	{
 		row = _Random.Next(0, EnemyGrid.Height);
 		column = _Random.Next(0, EnemyGrid.Width);
 	}
 
-	/// <summary>
-	/// ProcessShot will be called uppon when a ship is found.
-	/// It will create a stack with targets it will try to hit. These targets
-	/// will be around the tile that has been hit.
-	/// </summary>
-	/// <param name="row">the row it needs to process</param>
-	/// <param name="col">the column it needs to process</param>
-	/// <param name="result">the result og the last shot (should be hit)</param>
+    // ProcessShot will be called when a ship is found. It will create a
+    // stack with the targets it will try to hit. These targets will be
+    // around the tile that has been hit.
 
 	protected override void ProcessShot(int row, int col, AttackResult result)
 	{
@@ -105,11 +90,7 @@ public class AIMediumPlayer : AIPlayer
 		}
 	}
 
-	/// <summary>
-	/// AddTarget will add the targets it will shoot onto a stack
-	/// </summary>
-	/// <param name="row">the row of the targets location</param>
-	/// <param name="column">the column of the targets location</param>
+    // AddTarget will add the targets it will shoot onto a new stack
 	private void AddTarget(int row, int column)
 	{
 
@@ -118,10 +99,3 @@ public class AIMediumPlayer : AIPlayer
 		}
 	}
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================
