@@ -81,15 +81,19 @@ namespace Battleship
             {
                 case AIOption.Easy:
                     _ai = new AIEasyPlayer(_theGame);
+                    Audio.PlaySoundEffect(GameResources.GameSound("Easy"));
                     break;
                 case AIOption.Medium:
                     _ai = new AIMediumPlayer(_theGame);
+                    Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
                 case AIOption.Hard:
                     _ai = new AIHardPlayer(_theGame);
+                    Audio.PlaySoundEffect(GameResources.GameSound("Hard"));
                     break;
                 default:
                     _ai = new AIMediumPlayer(_theGame);
+                    Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
             }
             _human = new Player(_theGame);

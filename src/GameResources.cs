@@ -45,6 +45,9 @@ namespace Battleship
             SwinGame.LoadSoundEffectNamed("Miss", "watershot.wav");
             SwinGame.LoadSoundEffectNamed("Winner", "winner.wav");
             SwinGame.LoadSoundEffectNamed("Lose", "lose.wav");
+            SwinGame.LoadSoundEffectNamed("Easy", "easy.wav");
+            SwinGame.LoadSoundEffectNamed("Medium", "medium.wav");
+            SwinGame.LoadSoundEffectNamed("Hard", "hard.wav");
         }
 
         private static void LoadMusic() {
