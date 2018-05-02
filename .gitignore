@@ -351,3 +351,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+obj/x86/Debug-Windows/MyGame.exe
+obj/x86/Debug-Windows/MyGameWin.csproj.FileListAbsolute.txt

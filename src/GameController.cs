@@ -23,6 +23,8 @@ namespace Battleship
 
         private static AIOption _aiSetting;
 
+        private static List<ShipName> _playableShips = new List<ShipName>();
+
         // '' <summary>
         // '' Returns the current state of the game, indicating which screen is
         // '' currently being used
@@ -53,6 +55,19 @@ namespace Battleship
             }
         }
 
+        public static List<ShipName> PlayableShips
+        {
+            get
+            {
+                return _playableShips;
+            }
+
+            set
+            {
+                _playableShips = value;
+            }
+        }
+
         static GameController()
         {
             // bottom state will be quitting. If player exits main menu then the game is over
@@ -76,23 +91,35 @@ namespace Battleship
             
             // Create the game
             _theGame = new BattleShipsGame();
+
+            if (_playableShips.Count == 0)
+            {
+                foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+                {
+                    if (name != ShipName.None)
+                    {
+                        _playableShips.Add(name);
+                    }
+                }
+            }
+
             // create the players
             switch (_aiSetting)
             {
                 case AIOption.Easy:
-                    _ai = new AIEasyPlayer(_theGame);
+                    _ai = new AIEasyPlayer(_theGame, _playableShips);
                     break;
                 case AIOption.Medium:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     break;
                 case AIOption.Hard:
-                    _ai = new AIHardPlayer(_theGame);
+                    _ai = new AIHardPlayer(_theGame, _playableShips);
                     break;
                 default:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     break;
             }
-            _human = new Player(_theGame);
+            _human = new Player(_theGame, _playableShips);
             // AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
             _ai.PlayerGrid.Changed += GridChanged;
             _theGame.AttackCompleted += AttackCompleted;
@@ -294,6 +321,9 @@ namespace Battleship
                 case GameState.AlteringSettings:
                     MenuController.HandleSetupMenuInput();
                     break;
+                case GameState.AlteringShipSettings:
+                    MenuController.HandleShipsMenuInput();
+                    break;
                 case GameState.Deploying:
                     DeploymentController.HandleDeploymentInput();
                     break;
@@ -329,6 +359,9 @@ namespace Battleship
                     break;
                 case GameState.AlteringSettings:
                     MenuController.DrawSettings();
+                    break;
+                case GameState.AlteringShipSettings:
+                    MenuController.DrawShipsMenu();
                     break;
                 case GameState.Deploying:
                     DeploymentController.DrawDeployment();
@@ -383,6 +416,28 @@ namespace Battleship
         public static void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;
+        }
+
+        public static void SetShips(int numberOfShips)
+        {
+            _playableShips.Clear();
+
+            for (int i = 0; i < numberOfShips; i++)
+            {
+                _playableShips.Add((ShipName)(i+1));
+            }
+        }
+
+        public static void SetShips(ShipName[] shipsToAdd)
+        {
+            _playableShips.Clear();
+
+            foreach (ShipName ship in shipsToAdd)
+            {
+                _playableShips.Add(ship);
+            }
+
+            _playableShips.Sort();
         }
     }
 }
