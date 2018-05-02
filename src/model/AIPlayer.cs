@@ -83,12 +83,16 @@ public abstract class AIPlayer : Player
 	{
 	}
 
-	/// <summary>
-	/// Generate a valid row, column to shoot at
-	/// </summary>
-	/// <param name="row">output the row for the next shot</param>
-	/// <param name="column">output the column for the next show</param>
-	protected abstract void GenerateCoords(ref int row, ref int column);
+    public AIPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+    }
+
+    /// <summary>
+    /// Generate a valid row, column to shoot at
+    /// </summary>
+    /// <param name="row">output the row for the next shot</param>
+    /// <param name="column">output the column for the next show</param>
+    protected abstract void GenerateCoords(ref int row, ref int column);
 
 	/// <summary>
 	/// The last shot had the following result. Child classes can use this

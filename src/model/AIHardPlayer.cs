@@ -97,13 +97,18 @@ public class AIHardPlayer : AIPlayer
 	{
 	}
 
-	/// <summary>
-	/// GenerateCoords will call upon the right methods to generate the appropriate shooting
-	/// coordinates
-	/// </summary>
-	/// <param name="row">the row that will be shot at</param>
-	/// <param name="column">the column that will be shot at</param>
-	protected override void GenerateCoords(ref int row, ref int column)
+    public AIHardPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+
+    }
+
+    /// <summary>
+    /// GenerateCoords will call upon the right methods to generate the appropriate shooting
+    /// coordinates
+    /// </summary>
+    /// <param name="row">the row that will be shot at</param>
+    /// <param name="column">the column that will be shot at</param>
+    protected override void GenerateCoords(ref int row, ref int column)
 	{
 		do {
 			_CurrentTarget = null;

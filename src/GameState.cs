@@ -6,6 +6,7 @@ namespace Battleship
         ViewingGameMenu,
         ViewingHighScores,
         AlteringSettings,
+        AlteringShipSettings,
         Deploying,
         Discovering,
         EndingGame,

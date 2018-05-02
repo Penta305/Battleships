@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using System.Linq;
 /// <summary>
 /// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
 /// all ships are deployed and if all ships are detroyed. A Player can also attach.
@@ -40,20 +41,47 @@ public class Player : IEnumerable<Ship>
 		set { _enemyGrid = value; }
 	}
 
-	public Player(BattleShipsGame controller)
+	public Player(BattleShipsGame controller, Dictionary<ShipName, Ship> ships)
 	{
-		_game = controller;
-    _playerGrid = new SeaGrid(_Ships);
+        _Ships = ships;
 
-		//for each ship add the ships name so the seagrid knows about them
-		foreach (ShipName name in Enum.GetValues(typeof(ShipName))) {
-			if (name != ShipName.None) {
-				_Ships.Add(name, new Ship(name));
-			}
-		}
-
-		RandomizeDeployment();
+        InitializePlayer(controller);
 	}
+
+    public Player(BattleShipsGame controller)
+    {
+        // _Ships.Clear();
+
+        //for each ship add the ships name so the seagrid knows about them
+        foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+        {
+            if (name != ShipName.None)
+            {
+                _Ships.Add(name, new Ship(name));
+            }
+        }
+
+        InitializePlayer(controller);
+    }
+
+    public Player(BattleShipsGame controller, List<ShipName> shipNames)
+    {
+        // _Ships.Clear();
+
+        foreach (ShipName name in shipNames)
+        {
+            _Ships.Add(name, new Ship(name));
+        }
+
+        InitializePlayer(controller);
+    }
+
+    private void InitializePlayer(BattleShipsGame controller)
+    {
+        _game = controller;
+        _playerGrid = new SeaGrid(_Ships);
+        RandomizeDeployment(_Ships);
+    }
 
 	/// <summary>
 	/// The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
@@ -78,8 +106,9 @@ public class Player : IEnumerable<Ship>
 	}
 
 	public bool IsDestroyed {
-//Check if all ships are destroyed... -1 for the none ship
-		get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
+        //Check if all ships are destroyed... -1 for the none ship
+        // get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
+        get { return _playerGrid.ShipsKilled == _Ships.Count; }
 	}
 
 	/// <summary>
@@ -95,6 +124,14 @@ public class Player : IEnumerable<Ship>
 
 		return _Ships[name];
 	}
+
+    public Dictionary<ShipName, Ship> Ships
+    {
+        get
+        {
+            return _Ships;
+        }
+    }
 
 	/// <summary>
 	/// The number of shots the player has made
@@ -128,12 +165,20 @@ public class Player : IEnumerable<Ship>
 		}
 	}
 
-	/// <summary>
-	/// Makes it possible to enumerate over the ships the player
-	/// has.
-	/// </summary>
-	/// <returns>A Ship enumerator</returns>
-	public IEnumerator<Ship> GetShipEnumerator()
+    public ShipName FirstShip
+    {
+        get
+        {
+            return _Ships.OrderBy(_Ships => _Ships.Key).First().Key;
+        }
+    }
+
+    /// <summary>
+    /// Makes it possible to enumerate over the ships the player
+    /// has.
+    /// </summary>
+    /// <returns>A Ship enumerator</returns>
+    public IEnumerator<Ship> GetShipEnumerator()
 	{
 		Ship[] result = new Ship[_Ships.Values.Count + 1];
 		_Ships.Values.CopyTo(result, 0);
@@ -198,14 +243,16 @@ public class Player : IEnumerable<Ship>
 		return result;
 	}
 
-	public virtual void RandomizeDeployment()
+	public virtual void RandomizeDeployment(Dictionary<ShipName, Ship> ships)
 	{
 		bool placementSuccessful = false;
 		Direction heading = default(Direction);
 
 		//for each ship to deploy in shipist
 
-		foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName))) {
+		// foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName)))
+        foreach (ShipName shipToPlace in ships.Keys)
+        {
 			if (shipToPlace == ShipName.None)
 				continue;
 
