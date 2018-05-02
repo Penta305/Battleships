@@ -72,11 +72,7 @@ namespace Battleship
             return SwinGame.SoundEffectNamed(sound);
         }
 
-        // '' <summary>
-        // '' Gets the music loaded in the Resources
-        // '' </summary>
-        // '' <param name="music">Name of music</param>
-        // '' <returns>The music with this name</returns>
+        // Gets the music loaded in the Resources
         public static Music GameMusic(string music) {
             return SwinGame.MusicNamed(music);
             //return _Music(music);
