@@ -51,7 +51,7 @@ namespace Battleship
         }
 
         private static void LoadMusic() {
-            SwinGame.LoadMusicNamed("Background", "horrordrone.mp3");
+            SwinGame.LoadMusicNamed("Background", "moo.ogg");
         }
 
         // Gets a Font currently loaded in the Resources
