@@ -1,9 +1,12 @@
 using SwinGameSDK;
+using System;
 using System.Collections.Generic;
 
 namespace Battleship
 {
     public static class GameResources {
+
+        private static bool _toggle;
 
         private static void LoadFonts() {
             SwinGame.LoadFontNamed("ArialLarge", "arial.ttf", 80);
@@ -45,6 +48,7 @@ namespace Battleship
             SwinGame.LoadSoundEffectNamed("Miss", "watershot.wav");
             SwinGame.LoadSoundEffectNamed("Winner", "winner.wav");
             SwinGame.LoadSoundEffectNamed("Lose", "lose.wav");
+            SwinGame.LoadSoundEffectNamed("Miss1", "siren.wav");
         }
 
         private static void LoadMusic() {
@@ -78,6 +82,11 @@ namespace Battleship
         // '' <returns>The sound with this name</returns>
         public static SoundEffect GameSound(string sound) {
             //return _Sounds(sound);
+            if (_toggle)
+            {
+                sound += "1";
+            }
+
             return SwinGame.SoundEffectNamed(sound);
         }
 
@@ -226,6 +235,17 @@ namespace Battleship
             //SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, TX, TY, TW, TH);
             SwinGame.RefreshScreen();
             SwinGame.ProcessEvents();
+        }
+
+        public static void ReLoadSplash()
+        {
+            // SwinGame.FreeSoundEffect(GameSound("Miss"));
+            // Audio.FreeSoundEffect(GameSound("Miss"));
+            // SoundEffect toRemove = GameSound("Miss");
+            // Audio.FreeSoundEffect(toRemove);
+            // SwinGame.FreeSoundEffect(toRemove);
+            // SwinGame.LoadSoundEffectNamed("Miss", "siren.wav");
+            _toggle = !_toggle;
         }
 
         private static void EndLoadingScreen(int width, int height) {
