@@ -210,6 +210,7 @@ namespace Battleship
             {
                 case SETUP_MENU_EASY_BUTTON:
                     GameController.SetDifficulty(AIOption.Easy);
+                    GameResources.ReLoadSplash();
                     break;
                 case SETUP_MENU_MEDIUM_BUTTON:
                     GameController.SetDifficulty(AIOption.Medium);
