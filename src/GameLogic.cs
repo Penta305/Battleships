@@ -12,7 +12,7 @@ namespace Battleship
             SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
             
             GameResources.LoadResources();
-            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            Audio.PlayMusic(GameResources.GameMusic("Background"));
             do
             {
                 GameController.HandleUserInput();
