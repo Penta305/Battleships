@@ -5,10 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using System.Linq;
 
 // Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
 // all ships are deployed and if all ships are detroyed. A Player can also attach.
-
 public class Player : IEnumerable<Ship>
 {
 
@@ -35,20 +35,46 @@ public class Player : IEnumerable<Ship>
 		set { _enemyGrid = value; }
 	}
 
-	public Player(BattleShipsGame controller)
-	{
-		_game = controller;
-    _playerGrid = new SeaGrid(_Ships);
+	//public Player(BattleShipsGame controller, Dictionary<ShipName, Ship> ships)
+	//{
+ //       _Ships = ships;
+ //       InitializePlayer(controller);
+	//}
+
+    public Player(BattleShipsGame controller)
+    {
+        // _Ships.Clear();
 
         // For each ship, add the ship's name so the seagrid knows which one it is
-		foreach (ShipName name in Enum.GetValues(typeof(ShipName))) {
-			if (name != ShipName.None) {
-				_Ships.Add(name, new Ship(name));
-			}
-		}
+        foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+        {
+            if (name != ShipName.None)
+            {
+                _Ships.Add(name, new Ship(name));
+            }
+        }
 
-		RandomizeDeployment();
-	}
+        InitializePlayer(controller);
+    }
+
+    public Player(BattleShipsGame controller, List<ShipName> shipNames)
+    {
+        // _Ships.Clear();
+
+        foreach (ShipName name in shipNames)
+        {
+            _Ships.Add(name, new Ship(name));
+        }
+
+        InitializePlayer(controller);
+    }
+
+    private void InitializePlayer(BattleShipsGame controller)
+    {
+        _game = controller;
+        _playerGrid = new SeaGrid(_Ships);
+        RandomizeDeployment(_Ships);
+    }
 
     // The EnemyGrid is an ISeaGrid because you shouldn't be allowed to see the enemies ships
 	public ISeaGrid EnemyGrid {
@@ -67,8 +93,10 @@ public class Player : IEnumerable<Ship>
 	}
 
 	public bool IsDestroyed {
+
         // Check if all ships are destroyed... -1 for the none ship
-		get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
+        // get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
+        get { return _playerGrid.ShipsKilled == _Ships.Count; }
 	}
 
     // Returns the Player's ship with the given name.
@@ -78,8 +106,16 @@ public class Player : IEnumerable<Ship>
 
 		return _Ships[name];
 	}
+  
+    public Dictionary<ShipName, Ship> Ships
+    {
+        get
+        {
+            return _Ships;
+        }
+    }
 
-    // The number of shots the player has made
+	// The number of shots the player has made
 	public int Shots {
 		get { return _shots; }
 	}
@@ -103,8 +139,17 @@ public class Player : IEnumerable<Ship>
 		}
 	}
 
+    public ShipName FirstShip
+    {
+        get
+        {
+            return _Ships.OrderBy(_Ships => _Ships.Key).First().Key;
+        }
+    }
+
     // Makes it possible to enumerate over the ships the player has
-	public IEnumerator<Ship> GetShipEnumerator()
+    public IEnumerator<Ship> GetShipEnumerator()
+
 	{
 		Ship[] result = new Ship[_Ships.Values.Count + 1];
 		_Ships.Values.CopyTo(result, 0);
@@ -157,14 +202,16 @@ public class Player : IEnumerable<Ship>
 		return result;
 	}
 
-	public virtual void RandomizeDeployment()
+	public virtual void RandomizeDeployment(Dictionary<ShipName, Ship> ships)
 	{
 		bool placementSuccessful = false;
 		Direction heading = default(Direction);
 
         // For each ship to deploy in shiplist
 
-		foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName))) {
+		// foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName)))
+        foreach (ShipName shipToPlace in ships.Keys)
+        {
 			if (shipToPlace == ShipName.None)
 				continue;
 
@@ -194,10 +241,3 @@ public class Player : IEnumerable<Ship>
 		}
 	}
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================

@@ -31,10 +31,15 @@ public class AIEasyPlayer : AIPlayer
 	{
 	}
 
-	// GenerateCoordinates should generate random shooting coordinates
-	// only when it has not found a ship, or has destroyed a ship and
-	// needs new shooting coordinates
-	protected override void GenerateCoords(ref int row, ref int column)
+    public AIEasyPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+
+    }
+
+    // GenerateCoordinates should generate random shooting coordinates
+	  // only when it has not found a ship, or has destroyed a ship and
+	  // needs new shooting coordinates
+    protected override void GenerateCoords(ref int row, ref int column)
 	{
 		do {
 			// check which state the AI is in and uppon that choose which coordinate generation

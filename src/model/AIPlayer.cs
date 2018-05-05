@@ -56,10 +56,14 @@ public abstract class AIPlayer : Player
 	{
 	}
 
-	// Generate a valid row and column to shoot it
-	protected abstract void GenerateCoords(ref int row, ref int column);
+    public AIPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+    }
 
-	// The last shot had the following result. Child classes can use this
+    // Generate a valid row and column to shoot it
+    protected abstract void GenerateCoords(ref int row, ref int column);
+
+	  // The last shot had the following result. Child classes can use this
     // to prepare for the next shot.
 	protected abstract void ProcessShot(int row, int col, AttackResult result);
 

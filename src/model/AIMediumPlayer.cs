@@ -28,11 +28,15 @@ public class AIMediumPlayer : AIPlayer
 	{
 	}
 
-    // GenerateCoords should generrate random shooting coordinates only
+    public AIMediumPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+
+    }
+
+    // GenerateCoords should generate random shooting coordinates only
     // when it is yet to locate a ship, or has just destroyed a ship and
     // needs new coordinates.
-
-	protected override void GenerateCoords(ref int row, ref int column)
+    protected override void GenerateCoords(ref int row, ref int column)
 	{
 		do {
             // Check which state the AI is in to decide with coordinate

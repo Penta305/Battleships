@@ -75,9 +75,14 @@ public class AIHardPlayer : AIPlayer
 	{
 	}
 
-	// GenerateCoords will call upon the right methods to generate the appropriate shooting
+    public AIHardPlayer(BattleShipsGame game, List<ShipName> ships) : base(game, ships)
+    {
+
+    }
+
+    // GenerateCoords will call upon the right methods to generate the appropriate shooting
     // coordinates
-	protected override void GenerateCoords(ref int row, ref int column)
+    protected override void GenerateCoords(ref int row, ref int column)
 	{
 		do {
 			_CurrentTarget = null;

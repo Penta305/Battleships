@@ -42,11 +42,12 @@ namespace Battleship
 
         private static Direction _currentDirection = Direction.UpDown;
 
-        private static ShipName _selectedShip = ShipName.Tug;
+        // private static ShipName _selectedShip = ShipName.Tug;
+        private static ShipName _selectedShip = GameController.HumanPlayer.FirstShip;
 
- 
+
         // Handles the user input for the Deployment phase of the game.
-  
+
         // Includes options for selecting each ship, deloying each ship,
         // changing the direction, each ship is facing, random deployment,
         // and ending deployment (starting the game).
@@ -70,7 +71,7 @@ namespace Battleship
 
             if (SwinGame.KeyTyped(KeyCode.RKey))
             {
-                GameController.HumanPlayer.RandomizeDeployment();
+                GameController.HumanPlayer.RandomizeDeployment(GameController.HumanPlayer.Ships);
             }
 
             if (SwinGame.MouseClicked(MouseButton.LeftButton))
@@ -100,7 +101,7 @@ namespace Battleship
                 }
                 else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
                 {
-                    GameController.HumanPlayer.RandomizeDeployment();
+                    GameController.HumanPlayer.RandomizeDeployment(GameController.HumanPlayer.Ships);
                 }
 
             }
@@ -141,6 +142,9 @@ namespace Battleship
                     {
                         Audio.PlaySoundEffect(GameResources.GameSound("Error"));
                         UtilityFunctions.Message = ex.Message;
+
+                        if (ex.Message.ToLower() == "The given key was not present in the dictionary.".ToLower())
+                            UtilityFunctions.Message = string.Format("The current ship maximum is of size {0}", GameController.PlayableShips.Count);
                     }
 
                 }
@@ -224,7 +228,8 @@ namespace Battleship
 
         private static ShipName GetShipMouseIsOver()
         {
-            foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
+            foreach (ShipName sn in GameController.PlayableShips)
+            // foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {
                 int i;
                 i = ((int)(sn) - 1);
