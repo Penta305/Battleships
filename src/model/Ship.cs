@@ -5,14 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-/// <summary>
-/// A Ship has all the details about itself. For example the shipname,
-/// size, number of hits taken and the location. Its able to add tiles,
-/// remove, hits taken and if its deployed and destroyed.
-/// </summary>
-/// <remarks>
-/// Deployment information is supplied to allow ships to be drawn.
-/// </remarks>
+
+	// A Ship has all the details about what ship it is, inluding shipname,
+    // size, number of hits taken and the location. It's able to add tiles,
+    // remove, hits taken and whether or not it's delpoyed or destroyed.
+
 public class Ship
 {
 	private ShipName _shipName;
@@ -23,11 +20,7 @@ public class Ship
 	private int _col;
 
 	private Direction _direction;
-	/// <summary>
-	/// The type of ship
-	/// </summary>
-	/// <value>The type of ship</value>
-	/// <returns>The type of ship</returns>
+
 	public string Name {
 		get {
 			if (_shipName == ShipName.AircraftCarrier) {
@@ -38,30 +31,16 @@ public class Ship
 		}
 	}
 
-	/// <summary>
-	/// The number of cells that this ship occupies.
-	/// </summary>
-	/// <value>The number of hits the ship can take</value>
-	/// <returns>The number of hits the ship can take</returns>
+	// The number of cells that this ship occupies.
 	public int Size {
 		get { return _sizeOfShip; }
 	}
 
-	/// <summary>
-	/// The number of hits that the ship has taken.
-	/// </summary>
-	/// <value>The number of hits the ship has taken.</value>
-	/// <returns>The number of hits the ship has taken</returns>
-	/// <remarks>When this equals Size the ship is sunk</remarks>
+	// The number of hits that the ship has taken.
 	public int Hits {
 		get { return _hitsTaken; }
 	}
 
-	/// <summary>
-	/// The row location of the ship
-	/// </summary>
-	/// <value>The topmost location of the ship</value>
-	/// <returns>the row of the ship</returns>
 	public int Row {
 		get { return _row; }
 	}
@@ -79,22 +58,16 @@ public class Ship
 		_shipName = ship;
 		_tiles = new List<Tile>();
 
-		//gets the ship size from the enumarator
+		//It gets the ship size from the enumarator
 		_sizeOfShip = (int)_shipName;
 	}
 
-	/// <summary>
-	/// Add tile adds the ship tile
-	/// </summary>
-	/// <param name="tile">one of the tiles the ship is on</param>
 	public void AddTile(Tile tile)
 	{
 		_tiles.Add(tile);
 	}
 
-	/// <summary>
-	/// Remove clears the tile back to a sea tile
-	/// </summary>
+	// Remove clears the tile back to a sea tile
 	public void Remove()
 	{
 		foreach (Tile tile in _tiles) {
@@ -108,10 +81,7 @@ public class Ship
 		_hitsTaken = _hitsTaken + 1;
 	}
 
-	/// <summary>
-	/// IsDeployed returns if the ships is deployed, if its deplyed it has more than
-	/// 0 tiles
-	/// </summary>
+	// IsDeployed returns if the ship is deployed
 	public bool IsDeployed {
 		get { return _tiles.Count > 0; }
 	}
@@ -120,12 +90,7 @@ public class Ship
 		get { return Hits == Size; }
 	}
 
-	/// <summary>
-	/// Record that the ship is now deployed.
-	/// </summary>
-	/// <param name="direction"></param>
-	/// <param name="row"></param>
-	/// <param name="col"></param>
+	// Record that the ship is now deployed
 	internal void Deployed(Direction direction, int row, int col)
 	{
 		_row = row;
@@ -133,10 +98,3 @@ public class Ship
 		_direction = direction;
 	}
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================

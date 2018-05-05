@@ -7,15 +7,22 @@ using static SwinGameSDK.SwinGame; // requires mcs version 4+,
 
 namespace Battleship
 {
+    // Controls displaying and recording high score data, which is saved
+    // to a file so that they can be viewed each time the game is loaded.
     public static class HighScoreController
     {
 
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;
+
+        // The score structure is used to keep the mame and score of
+        // the top players together.
         private struct Score : IComparable
         {
             public string Name;
             public int Value;
+
+            // Allows the scores to be compared to facilitate sorting
             public int CompareTo(object obj)
             {
                 if (obj is Score)
@@ -50,6 +57,9 @@ namespace Battleship
             
             return temp2.Count;
         }
+
+        // Loads the scores from the highscores text file
+        // private List<Score> _Scores = new List<Score>;
         private static void LoadScores()
         {
             string filename;
@@ -68,6 +78,7 @@ namespace Battleship
                 temp2.Add(temp);
             }
 
+            // Reads in the number of scores
             int numScores = temp2.Count;
             _Scores.Clear();
             int i;
@@ -84,6 +95,7 @@ namespace Battleship
             input.Close();
         }
 
+        // Saves the scores back into the highscores text file
         private static void SaveScores()
         {
             string filename;
@@ -99,6 +111,7 @@ namespace Battleship
             output.Close();
         }
 
+        // Draws the high scores onto the screen
         public static void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
@@ -123,6 +136,7 @@ namespace Battleship
             }
         }
 
+        // Handles the user input during the top score screen
         public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.EscapeKey) || SwinGame.KeyTyped(KeyCode.ReturnKey))
@@ -131,6 +145,7 @@ namespace Battleship
             }
         }
 
+        // Reads the users name for their high score
         public static void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;
@@ -167,9 +182,3 @@ namespace Battleship
         }
     }
 }
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by Refactoring Essentials.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================

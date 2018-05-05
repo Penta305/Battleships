@@ -8,10 +8,11 @@ namespace Battleship
     {
         public static void Main()
         {
+            // Opens up a new graphics window
             SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
             
             GameResources.LoadResources();
-            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            Audio.PlayMusic(GameResources.GameMusic("Background"));
             do
             {
                 GameController.HandleUserInput();
@@ -27,9 +28,3 @@ namespace Battleship
         }
     }
 }
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by Refactoring Essentials.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================

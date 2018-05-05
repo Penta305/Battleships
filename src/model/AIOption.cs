@@ -5,30 +5,16 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-/// <summary>
-/// The different AI levels.
-/// </summary>
+
+// The different levels of AI difficulty
 public enum AIOption
 {
-	/// <summary>
-	/// Easy, total random shooting
-	/// </summary>
+	// Completely random shooting
 	Easy,
 
-	/// <summary>
-	/// Medium, marks squares around hits
-	/// </summary>
+	// Marks squares around hits
 	Medium,
 
-	/// <summary>
-	/// As medium, but removes shots once it misses
-	/// </summary>
+	// Same as medium, but removes shots once it misses
 	Hard
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================
