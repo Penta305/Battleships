@@ -100,20 +100,22 @@ namespace Battleship
             switch (_aiSetting)
             {
                 case AIOption.Easy:
-
-                    _ai = new AIEasyPlayer(_theGame);
+                    _ai = new AIEasyPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Easy"));
                     break;
+
                 case AIOption.Medium:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
+
                 case AIOption.Hard:
-                    _ai = new AIHardPlayer(_theGame);
+                    _ai = new AIHardPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Hard"));
                     break;
+
                 default:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
             }
