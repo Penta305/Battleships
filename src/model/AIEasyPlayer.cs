@@ -5,12 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 // Still a WIP
 // Copied Medium AI
 
 // The AIEasyPlayer is a type of AIPlayer where it will try and destroy a ship
 // if it has found a ship
+[Serializable]
 public class AIEasyPlayer : AIPlayer
 {
 	/// <summary>

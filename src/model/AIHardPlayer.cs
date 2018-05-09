@@ -5,12 +5,15 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 // AIHardPlayer is the highest difficulty of AI. This AI will know the direction
 // of a ships when it has found 2 ship tiles. If that ship is not destroyed after a miss,
 // it will shoot the other way. If the ship is still not destroyed, then the AI
 // knows it has hit multiple ships. It will then try to destoy all around tiles
 // that have been hit.
+[Serializable]
 public class AIHardPlayer : AIPlayer
 {
 

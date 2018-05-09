@@ -14,6 +14,13 @@ namespace Battleship
         // an attack at that location.
         public static void HandleDiscoveryInput()
         {
+            if (GameController.CurrentState == GameState.ReDiscovering)
+            {
+                GameController.HumanPlayer.Reset();
+                GameController.EndCurrentState();
+                GameController.EndCurrentState();
+
+            }
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
             {
                 GameController.AddNewState(GameState.ViewingGameMenu);

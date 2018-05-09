@@ -12,6 +12,7 @@ namespace Battleship
         AlteringShipSettings,
         Deploying,
         Discovering,
+        ReDiscovering,
         EndingGame,
         Quitting
     }

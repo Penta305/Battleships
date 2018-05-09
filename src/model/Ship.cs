@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-
-	// A Ship has all the details about what ship it is, inluding shipname,
-    // size, number of hits taken and the location. It's able to add tiles,
-    // remove, hits taken and whether or not it's delpoyed or destroyed.
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+// A Ship has all the details about what ship it is, inluding shipname,
+// size, number of hits taken and the location. It's able to add tiles,
+// remove, hits taken and whether or not it's delpoyed or destroyed.
+[Serializable]
 public class Ship
 {
 	private ShipName _shipName;

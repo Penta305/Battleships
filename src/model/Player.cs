@@ -1,12 +1,10 @@
-
-using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
 using System.Linq;
-
+[Serializable]
 // Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
 // all ships are deployed and if all ships are detroyed. A Player can also attach.
 public class Player : IEnumerable<Ship>
@@ -18,11 +16,25 @@ public class Player : IEnumerable<Ship>
 	private ISeaGrid _enemyGrid;
 
 	protected BattleShipsGame _game;
-	private int _shots;
+    protected BattleShipsGame _gameC;
+    private int _shots;
 	private int _hits;
 
 	private int _misses;
-
+    public BattleShipsGame GameC
+    {
+        get
+        {
+            return _gameC;
+        }
+    }
+    public void Reset()
+    {
+        _shots = 0;
+        _hits = 0;
+        _misses = 0;
+ 
+    }
 	// Returns the game that the player is part of.
 	public BattleShipsGame Game {
 		get { return _game; }
@@ -34,7 +46,18 @@ public class Player : IEnumerable<Ship>
 	public ISeaGrid Enemy {
 		set { _enemyGrid = value; }
 	}
-
+    public List<ShipName> Shipss
+    {
+        get
+        {
+            List<ShipName> k = new List<ShipName>();
+            foreach (KeyValuePair<ShipName,Ship> s in _Ships)
+            {
+                k.Add(s.Key);
+            }
+            return k;
+        }
+    }
 	//public Player(BattleShipsGame controller, Dictionary<ShipName, Ship> ships)
 	//{
  //       _Ships = ships;
@@ -65,7 +88,7 @@ public class Player : IEnumerable<Ship>
         {
             _Ships.Add(name, new Ship(name));
         }
-
+        _gameC = controller;
         InitializePlayer(controller);
     }
 
@@ -76,8 +99,10 @@ public class Player : IEnumerable<Ship>
         RandomizeDeployment(_Ships);
     }
 
+  
+
     // The EnemyGrid is an ISeaGrid because you shouldn't be allowed to see the enemies ships
-	public ISeaGrid EnemyGrid {
+    public ISeaGrid EnemyGrid {
 		get { return _enemyGrid; }
 		set { _enemyGrid = value; }
 	}
@@ -181,7 +206,7 @@ public class Player : IEnumerable<Ship>
 	}
 
     // Shoot at a given row/column
-	internal AttackResult Shoot(int row, int col)
+	public AttackResult Shoot(int row, int col)
 	{
 		_shots += 0;
 		AttackResult result = default(AttackResult);

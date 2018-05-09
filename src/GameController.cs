@@ -13,14 +13,14 @@ namespace Battleship
         private static BattleShipsGame _theGame;
 
         private static Player _human;
-
+        private static Player CloneH;
         private static AIPlayer _ai;
-
+        private static AIPlayer CloneA;
         private static Stack<GameState> _state = new Stack<GameState>();
 
         private static AIOption _aiSetting;
 
-
+        public static string a = "";
         // Returns to the current state of the game, indicating which screen is
         // currently being used.
 
@@ -222,6 +222,7 @@ namespace Battleship
             // deploy the players
             _theGame.AddDeployedPlayer(_human);
             _theGame.AddDeployedPlayer(_ai);
+           
             GameController.SwitchState(GameState.Discovering);
         }
 
@@ -288,6 +289,10 @@ namespace Battleship
                     DeploymentController.HandleDeploymentInput();
                     break;
                 case GameState.Discovering:
+                    DiscoveryController.HandleDiscoveryInput();
+                    break;
+                case GameState.ReDiscovering:
+                    _theGame.ResetGame();
                     DiscoveryController.HandleDiscoveryInput();
                     break;
                 case GameState.EndingGame:

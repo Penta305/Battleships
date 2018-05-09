@@ -12,7 +12,7 @@ namespace Battleship
 
         // The menu structure for the game. These are the text captions
         // for the menu items
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT", "SHIPS", "MUTE", "UNMUTE" }, new string[] { "RETURN", "SURRENDER", "QUIT", "MUTE", "UNMUTE" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string[] { "One", "Two", "Three", "Four", "Five" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT", "SHIPS", "MUTE", "UNMUTE" }, new string[] { "RETURN", "SURRENDER", "QUIT", "MUTE", "UNMUTE","RESET" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string[] { "One", "Two", "Three", "Four", "Five" } };
 
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
@@ -46,6 +46,7 @@ namespace Battleship
         private const int GAME_MENU_QUIT_BUTTON = 2;
         private const int GAME_MENU_MUTE_BUTTON = 3;
         private const int GAME_MENU_UNMUTE_BUTTON = 4;
+        private const int GAME_MENU_RESET_BUTTON = 5;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -236,6 +237,7 @@ namespace Battleship
                     break;
                 case MAIN_MENU_UNMUTE_BUTTON:
                     Audio.ResumeMusic();
+                    break;
             }
         }
 
@@ -285,6 +287,9 @@ namespace Battleship
                     break;
                 case GAME_MENU_UNMUTE_BUTTON:
                     Audio.ResumeMusic ();
+                    break;
+                case GAME_MENU_RESET_BUTTON:
+                    GameController.AddNewState(GameState.ReDiscovering);
                     break;
             }
         }

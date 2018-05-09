@@ -5,12 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 // The SeaGrid is the grid upon which the ships are deployed.
 
 // The grid is viewable via the ISeaGrid interface as a read only
 // grid. This can be used in conjunction with the SeaGridAdapter to 
 // mask the position of the ships.
+[Serializable]
 public class SeaGrid : ISeaGrid
 {
 
@@ -36,6 +38,7 @@ public class SeaGrid : ISeaGrid
 	// ShipsKilled returns the number of ships killed
 	public int ShipsKilled {
 		get { return _ShipsKilled; }
+        set { _ShipsKilled = value; }
 	}
 
 	// Show the tile view

@@ -93,6 +93,7 @@
     <Compile Include="src\model\AIPlayer.cs" />
     <Compile Include="src\model\AttackResult.cs" />
     <Compile Include="src\model\BattleShipsGame.cs" />
+    <Compile Include="src\model\DeepClone.cs" />
     <Compile Include="src\model\Direction.cs" />
     <Compile Include="src\model\ISeaGrid.cs" />
     <Compile Include="src\model\Player.cs" />
@@ -113,6 +114,7 @@
       <HintPath>lib\SwinGame.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".vs\MyGameWin\v14\.suo" />
@@ -156,6 +158,20 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSXML2">
+      <Guid>{F5078F18-C551-11D3-89B9-0000F81FE221}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Target Name="CopyLibsToOut">
     <Copy SourceFiles="@(WinLibs)" DestinationFolder="$(OutDir)" />
