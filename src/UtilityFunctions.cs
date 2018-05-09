@@ -270,6 +270,7 @@ namespace Battleship
                 case GameState.ViewingMainMenu:
                 case GameState.ViewingGameMenu:
                 case GameState.AlteringSettings:
+                case GameState.ChangingThemes:
                 case GameState.ViewingHighScores:
                 case GameState.AlteringShipSettings:
                     SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);

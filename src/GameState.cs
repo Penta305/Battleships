@@ -10,6 +10,7 @@ namespace Battleship
         ViewingHighScores,
         AlteringSettings,
         AlteringShipSettings,
+        ChangingThemes,
         Deploying,
         Discovering,
         EndingGame,
