@@ -3,41 +3,64 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
-    public static class GameResources {
+    public static class GameResources
+    {
 
-        private static void LoadFonts() {
+        private static bool _toggle;
+        
+
+        private static void LoadFonts()
+        {
             SwinGame.LoadFontNamed("ArialLarge", "arial.ttf", 80);
             SwinGame.LoadFontNamed("Courier", "cour.ttf", 14);
             SwinGame.LoadFontNamed("CourierSmall", "cour.ttf", 8);
             SwinGame.LoadFontNamed("Menu", "ffaccess.ttf", 8);
         }
 
-        private static void LoadImages() {
+        private static void LoadImages()
+        {
             // Backgrounds
             SwinGame.LoadBitmapNamed("Menu", "main_page.jpg");
             SwinGame.LoadBitmapNamed("Discovery", "discover.jpg");
             SwinGame.LoadBitmapNamed("Deploy", "deploy.jpg");
+            SwinGame.LoadBitmapNamed("Menu1", "main_page.jpg");
+            SwinGame.LoadBitmapNamed("Discovery1", "discover.jpg");
+            SwinGame.LoadBitmapNamed("Deploy1", "deploy.jpg");
             // Deployment
             SwinGame.LoadBitmapNamed("LeftRightButton", "deploy_dir_button_horiz.png");
             SwinGame.LoadBitmapNamed("UpDownButton", "deploy_dir_button_vert.png");
             SwinGame.LoadBitmapNamed("SelectedShip", "deploy_button_hl.png");
             SwinGame.LoadBitmapNamed("PlayButton", "deploy_play_button.png");
             SwinGame.LoadBitmapNamed("RandomButton", "deploy_randomize_button.png");
+            SwinGame.LoadBitmapNamed("LeftRightButton1", "deploy_dir_button_horiz.png");
+            SwinGame.LoadBitmapNamed("UpDownButton1", "deploy_dir_button_vert.png");
+            SwinGame.LoadBitmapNamed("SelectedShip1", "deploy_button_hl.png");
+            SwinGame.LoadBitmapNamed("PlayButton1", "deploy_play_button.png");
+            SwinGame.LoadBitmapNamed("RandomButton1", "deploy_randomize_button.png");
             // Ships
             int i;
-            for (i = 1; (i <= 5); i++) {
+            for (i = 1; (i <= 5); i++)
+            {
                 SwinGame.LoadBitmapNamed(("ShipLR" + i), ("ship_deploy_horiz_"
                                 + (i + ".png")));
                 SwinGame.LoadBitmapNamed(("ShipUD" + i), ("ship_deploy_vert_"
+                                + (i + ".png")));
+                SwinGame.LoadBitmapNamed(("ShipLR" + i + "1"), ("ship_deploy_horiz_1_"
+                                + (i + ".png")));
+                SwinGame.LoadBitmapNamed(("ShipUD" + i + "1"), ("ship_deploy_vert_1_"
                                 + (i + ".png")));
             }
 
             // Explosions
             SwinGame.LoadBitmapNamed("Explosion", "explosion.png");
             SwinGame.LoadBitmapNamed("Splash", "splash.png");
+            SwinGame.LoadBitmapNamed("Explosion1", "explosion.png");
+            SwinGame.LoadBitmapNamed("Splash1", "splash.png");
         }
 
-        private static void LoadSounds() {
+
+        private static void LoadSounds()
+        {
             SwinGame.LoadSoundEffectNamed("Error", "error.wav");
             SwinGame.LoadSoundEffectNamed("Hit", "hit.wav");
             SwinGame.LoadSoundEffectNamed("Sink", "sink.wav");
@@ -48,32 +71,58 @@ namespace Battleship
             SwinGame.LoadSoundEffectNamed("Easy", "easy.wav");
             SwinGame.LoadSoundEffectNamed("Medium", "medium.wav");
             SwinGame.LoadSoundEffectNamed("Hard", "hard.wav");
+
+            SwinGame.LoadSoundEffectNamed("Error1", "error.wav");
+            SwinGame.LoadSoundEffectNamed("Hit1", "Oof.wav");
+            SwinGame.LoadSoundEffectNamed("Sink1", "r2.wav");
+            SwinGame.LoadSoundEffectNamed("Siren1", "siren.wav");
+            SwinGame.LoadSoundEffectNamed("Miss1", "Laser.wav");
+            SwinGame.LoadSoundEffectNamed("Winner1", "winner.wav");
+            SwinGame.LoadSoundEffectNamed("Lose1", "lose.wav");
+            SwinGame.LoadSoundEffectNamed("Easy1", "easy.wav");
+            SwinGame.LoadSoundEffectNamed("Medium1", "medium.wav");
+            SwinGame.LoadSoundEffectNamed("Hard1", "hard.wav");
         }
 
-        private static void LoadMusic() {
+        private static void LoadMusic()
+        {
             SwinGame.LoadMusicNamed("Background", "moo.ogg");
         }
 
         // Gets a Font currently loaded in the Resources
-        public static Font GameFont(string font) {
+        public static Font GameFont(string font)
+        {
             //return _Fonts(font);
             return SwinGame.FontNamed(font);
         }
 
         // Gets an Image currently loaded in the Resources
-        public static Bitmap GameImage(string image) {
+        public static Bitmap GameImage(string image)
+        {
             //return _Images(image);
+            if (_toggle)
+            {
+                image += "1";
+            }
             return SwinGame.BitmapNamed(image);
         }
 
         // Gets an sound currently loaded in the Resources
-        public static SoundEffect GameSound(string sound) {
+        public static SoundEffect GameSound(string sound)
+        {
             //return _Sounds(sound);
+            if (_toggle)
+            {
+                sound += "1";
+            }
+
             return SwinGame.SoundEffectNamed(sound);
         }
 
+
         // Gets the music loaded in the Resources
-        public static Music GameMusic(string music) {
+        public static Music GameMusic(string music)
+        {
             return SwinGame.MusicNamed(music);
             //return _Music(music);
         }
@@ -100,7 +149,8 @@ namespace Battleship
 
         // The Resources Class stores all of the games media resources, such as images,
         // fonts, sounds, and music.
-        public static void LoadResources() {
+        public static void LoadResources()
+        {
             int width;
             int height;
             width = SwinGame.ScreenWidth();
@@ -125,7 +175,8 @@ namespace Battleship
             GameResources.EndLoadingScreen(width, height);
         }
 
-        private static void ShowLoadingScreen() {
+        private static void ShowLoadingScreen()
+        {
             SwinGame.LoadBitmapNamed("loadBackground", SwinGame.PathToResource("SplashBack.png", ResourceKind.BitmapResource));
             SwinGame.DrawBitmap("loadBackground", 0, 0);
 
@@ -145,13 +196,15 @@ namespace Battleship
             GameResources.PlaySwinGameIntro();
         }
 
-        private static void PlaySwinGameIntro() {
+        private static void PlaySwinGameIntro()
+        {
             const int ANI_CELL_COUNT = 11;
             Audio.PlaySoundEffect("StartSound");
             SwinGame.Delay(200);
             int i;
             for (i = 0; (i
-                        <= (ANI_CELL_COUNT - 1)); i++) {
+                        <= (ANI_CELL_COUNT - 1)); i++)
+            {
                 SwinGame.DrawBitmap("loadBackground", 0, 0);
                 SwinGame.Delay(20);
                 SwinGame.RefreshScreen();
@@ -161,7 +214,8 @@ namespace Battleship
             SwinGame.Delay(1500);
         }
 
-        private static void ShowMessage(string message, int number) {
+        private static void ShowMessage(string message, int number)
+        {
             const int BG_Y = 453;
             int TX = 310;
             int TY = 493;
@@ -213,7 +267,21 @@ namespace Battleship
             SwinGame.ProcessEvents();
         }
 
-        private static void EndLoadingScreen(int width, int height) {
+        public static void swaptheme()
+        {
+            // SwinGame.FreeSoundEffect(GameSound("Miss"));
+            // Audio.FreeSoundEffect(GameSound("Miss"));
+            // SoundEffect toRemove = GameSound("Miss");
+            // Audio.FreeSoundEffect(toRemove);
+            // SwinGame.FreeSoundEffect(toRemove);
+            // SwinGame.LoadSoundEffectNamed("Miss", "siren.wav");
+            _toggle = !_toggle;
+        }
+
+        
+
+        private static void EndLoadingScreen(int width, int height)
+        {
             SwinGame.ProcessEvents();
             SwinGame.Delay(500);
             SwinGame.ClearScreen();
@@ -229,62 +297,78 @@ namespace Battleship
             SwinGame.ChangeScreenSize(width, height);
         }
 
-        private static void NewFont(string fontName, string filename, int size) {
+        private static void NewFont(string fontName, string filename, int size)
+        {
             _Fonts.Add(fontName, SwinGame.LoadFont(SwinGame.PathToResource(filename, ResourceKind.FontResource), size));
 
         }
 
-        private static void NewImage(string imageName, string filename) {
+        private static void NewImage(string imageName, string filename)
+        {
             _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
         }
 
-        private static void NewTransparentColorImage(string imageName, string fileName, Color transColor) {
+        private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
+        {
             _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)));
         }
 
-        private static void NewTransparentColourImage(string imageName, string fileName, Color transColor) {
+        private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
+        {
             GameResources.NewTransparentColorImage(imageName, fileName, transColor);
         }
 
-        private static void NewSound(string soundName, string filename) {
+        private static void NewSound(string soundName, string filename)
+        {
             _Sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
-        private static void NewMusic(string musicName, string filename) {
+        private static void NewMusic(string musicName, string filename)
+        {
             _Music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
-        private static void FreeFonts() {
-            foreach (Font obj in _Fonts.Values) {
+        private static void FreeFonts()
+        {
+            foreach (Font obj in _Fonts.Values)
+            {
                 SwinGame.FreeFont(obj);
             }
 
         }
 
-        private static void FreeImages() {
-            foreach (Bitmap obj in _Images.Values) {
+        private static void FreeImages()
+        {
+            foreach (Bitmap obj in _Images.Values)
+            {
                 SwinGame.FreeBitmap(obj);
             }
 
         }
 
-        private static void FreeSounds() {
-            foreach (SoundEffect obj in _Sounds.Values) {
+        private static void FreeSounds()
+        {
+            foreach (SoundEffect obj in _Sounds.Values)
+            {
                 Audio.FreeSoundEffect(obj);
             }
 
         }
 
-        private static void FreeMusic() {
-            foreach (Music obj in _Music.Values) {
+        private static void FreeMusic()
+        {
+            foreach (Music obj in _Music.Values)
+            {
                 Audio.FreeMusic(obj);
             }
 
         }
 
-        public static void FreeResources() {
+        public static void FreeResources()
+        {
             SwinGame.ReleaseAllResources();
             SwinGame.ProcessEvents();
         }
     }
 }
+
