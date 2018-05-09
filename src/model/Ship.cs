@@ -40,6 +40,7 @@ public class Ship
 	// The number of hits that the ship has taken.
 	public int Hits {
 		get { return _hitsTaken; }
+        set { _hitsTaken = value; }
 	}
 
 	public int Row {

@@ -159,4 +159,12 @@ public class SeaGrid : ISeaGrid
 			}
 		}
 	}
+
+    public void ResetTiles()
+    {
+        foreach (Tile tile in _GameTiles)
+        {
+            tile.Shot = false;
+        }
+    }
 }

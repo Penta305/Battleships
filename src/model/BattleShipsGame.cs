@@ -63,8 +63,24 @@ public class BattleShipsGame
     }
     public void ResetGame()
     {
-        _players[0].Enemy = new SeaGridAdapter(Clone[1].PlayerGrid);
-        _players[1].Enemy = new SeaGridAdapter(Clone[0].PlayerGrid);
+        // _players[0].Enemy = new SeaGridAdapter(Clone[1].PlayerGrid);
+        // _players[1].Enemy = new SeaGridAdapter(Clone[0].PlayerGrid);
+
+        _players[0].PlayerGrid.ResetTiles();
+        _players[1].PlayerGrid.ResetTiles();
+
+        _players[0].PlayerGrid.ShipsKilled = 0;
+        _players[1].PlayerGrid.ShipsKilled = 0;
+
+        foreach (ShipName ship in _players[0].Shipss)
+        {
+            _players[0].Ship(ship).Hits = 0;
+        }
+
+        foreach (ShipName ship in _players[1].Shipss)
+        {
+            _players[1].Ship(ship).Hits = 0;
+        }
     }
     // Shoot will swap between players and check if a player has been killed.
     // It also allows the current player to hit on the enemies grid.
