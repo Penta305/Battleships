@@ -12,7 +12,7 @@ namespace Battleship
     public static class HighScoreController
     {
 
-        private const int NAME_WIDTH = 3;
+        private const int NAME_WIDTH = 30;
         private const int SCORES_LEFT = 490;
 
         // The score structure is used to keep the mame and score of
