@@ -293,6 +293,7 @@ namespace Battleship
                     break;
                 case GameState.ReDiscovering:
                     _theGame.ResetGame();
+                    _theGame = _theGame.Clone3;
                     DiscoveryController.HandleDiscoveryInput();
                     break;
                 case GameState.EndingGame:

@@ -12,7 +12,7 @@ namespace Battleship
     public static class HighScoreController
     {
 
-        private const int NAME_WIDTH = 3;
+        private const int NAME_WIDTH = 30;
         private const int SCORES_LEFT = 490;
 
         // The score structure is used to keep the mame and score of
@@ -38,25 +38,7 @@ namespace Battleship
         }
 
         private static List<Score> _Scores = new List<Score>();
-        public static int Hahaha()
-        {
-            string filename;
-            filename = SwinGame.PathToResource("highscores.txt");
-            StreamReader input;
-            input = new StreamReader(filename);
-            StreamReader input1;
-            input1 = new StreamReader(filename);
-            string temp;
-            List<string> temp2 = new List<string>();
-            while (input1.ReadLine()!= "")
-            {
-                temp = input.ReadLine();
-                temp2.Add(temp);
-            }
-            
-            
-            return temp2.Count;
-        }
+        
 
         // Loads the scores from the highscores text file
         // private List<Score> _Scores = new List<Score>;
@@ -96,7 +78,7 @@ namespace Battleship
         }
 
         // Saves the scores back into the highscores text file
-        private static void SaveScores()
+        public static void SaveScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
@@ -169,10 +151,7 @@ namespace Battleship
                 }
 
                 s.Name = SwinGame.TextReadAsASCII();
-                if (s.Name.Length < 3)
-                {
-                    s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
-                }
+               
 
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);

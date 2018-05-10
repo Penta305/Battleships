@@ -24,11 +24,12 @@ public class BattleShipsGame
 	public event AttackCompletedHandler AttackCompleted;
     public BattleShipsGame()
     {
-        Clone = new Player[3];
+        Clone = new Player[3,2];
     }
 	private Player[] _players = new Player[3];
-    private Player[] Clone;
-    
+    private Player[,] Clone;
+    private BattleShipsGame[] Clone2 = new BattleShipsGame[2];
+
     private int _playerIndex = 0;
 	// The current player. This value will switch between the two players
     // each turn.
@@ -42,12 +43,15 @@ public class BattleShipsGame
 	{
 		if (_players[0] == null) {
 			_players[0] = p;
-            Clone[0] = DeepClone.Clone(p);
-        } else if (_players[1] == null) {
+            Clone[0,0] = DeepClone.Clone(p);
+        }
+        else if (_players[1] == null) {
 			_players[1] = p;
-            Clone[1] = DeepClone.Clone(p);
+            Clone[0,1] = DeepClone.Clone(p);
+            
             CompleteDeployment();
-		} else {
+            Clone2[0] = DeepClone.Clone(this);
+        } else {
 			throw new ApplicationException("You cannot add another player, the game already has two players.");
 		}
 	}
@@ -61,11 +65,18 @@ public class BattleShipsGame
             _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
   
     }
+    public BattleShipsGame Clone3
+    {
+        get
+        {
+            return Clone2[1];
+        }
+    }
     public void ResetGame()
     {
-        _players[0].Enemy = new SeaGridAdapter(Clone[1].PlayerGrid);
-        _players[1].Enemy = new SeaGridAdapter(Clone[0].PlayerGrid);
+        Clone2[1] = DeepClone.Clone(Clone2[0]);
     }
+
     // Shoot will swap between players and check if a player has been killed.
     // It also allows the current player to hit on the enemies grid.
     public AttackResult Shoot(int row, int col)
