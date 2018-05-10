@@ -38,7 +38,25 @@ namespace Battleship
         }
 
         private static List<Score> _Scores = new List<Score>();
-       
+        public static int Hahaha()
+        {
+            string filename;
+            filename = SwinGame.PathToResource("highscores.txt");
+            StreamReader input;
+            input = new StreamReader(filename);
+            StreamReader input1;
+            input1 = new StreamReader(filename);
+            string temp;
+            List<string> temp2 = new List<string>();
+            while (input1.ReadLine()!= "")
+            {
+                temp = input.ReadLine();
+                temp2.Add(temp);
+            }
+            
+            
+            return temp2.Count;
+        }
 
         // Loads the scores from the highscores text file
         // private List<Score> _Scores = new List<Score>;
@@ -46,8 +64,6 @@ namespace Battleship
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
-            Console.WriteLine(filename);
-            Console.ReadLine();
             StreamReader input;
             input = new StreamReader(filename);
             StreamReader input1;
@@ -91,10 +107,12 @@ namespace Battleship
             // output.WriteLine(_Scores.Count);
             foreach (Score s in _Scores)
             {
-                output.Close();
+                output.WriteLine(s.Name +":" +s.Value);
             }
 
+            output.Close();
         }
+
         // Draws the high scores onto the screen
         public static void DrawHighScores()
         {
@@ -153,9 +171,15 @@ namespace Battleship
                 }
 
                 s.Name = SwinGame.TextReadAsASCII();
+                if (s.Name.Length < 3)
+                {
+                    s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
+                }
+
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);
                 _Scores.Sort();
+
                 SaveScores();
                 GameController.EndCurrentState();
             }
