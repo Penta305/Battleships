@@ -4,4 +4,3 @@ CCC:80
 DDD:70
 EEE:60
 FFF:50
-
