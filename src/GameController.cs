@@ -13,14 +13,14 @@ namespace Battleship
         private static BattleShipsGame _theGame;
 
         private static Player _human;
-
+        private static Player CloneH;
         private static AIPlayer _ai;
-
+        private static AIPlayer CloneA;
         private static Stack<GameState> _state = new Stack<GameState>();
 
         private static AIOption _aiSetting;
 
-
+        public static string a = "";
         // Returns to the current state of the game, indicating which screen is
         // currently being used.
 
@@ -62,9 +62,10 @@ namespace Battleship
                 _playableShips = value;
             }
         }
-
+        
         static GameController()
         {
+            
             // Th bottom state will be quitting. If the player exits to the
             // main menu, then the game will end.
             _state.Push(GameState.Quitting);
@@ -100,20 +101,22 @@ namespace Battleship
             switch (_aiSetting)
             {
                 case AIOption.Easy:
-
-                    _ai = new AIEasyPlayer(_theGame);
+                    _ai = new AIEasyPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Easy"));
                     break;
+
                 case AIOption.Medium:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
+
                 case AIOption.Hard:
-                    _ai = new AIHardPlayer(_theGame);
+                    _ai = new AIHardPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Hard"));
                     break;
+
                 default:
-                    _ai = new AIMediumPlayer(_theGame);
+                    _ai = new AIMediumPlayer(_theGame, _playableShips);
                     Audio.PlaySoundEffect(GameResources.GameSound("Medium"));
                     break;
             }
@@ -222,6 +225,7 @@ namespace Battleship
             // deploy the players
             _theGame.AddDeployedPlayer(_human);
             _theGame.AddDeployedPlayer(_ai);
+           
             GameController.SwitchState(GameState.Discovering);
         }
 
@@ -288,6 +292,10 @@ namespace Battleship
                     DeploymentController.HandleDeploymentInput();
                     break;
                 case GameState.Discovering:
+                    DiscoveryController.HandleDiscoveryInput();
+                    break;
+                case GameState.ReDiscovering:
+                    _theGame.ResetGame();
                     DiscoveryController.HandleDiscoveryInput();
                     break;
                 case GameState.EndingGame:

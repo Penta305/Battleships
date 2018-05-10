@@ -5,9 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 // Tile knows its location on the grid, if it's a ship and if it has
 // been shot before
+[Serializable]
 public class Tile
 {
 	private readonly int _RowValue;

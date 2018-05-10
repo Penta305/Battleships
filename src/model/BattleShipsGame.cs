@@ -5,10 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 // The BattleShipsGame controls a big part of the game. It will add the two players
 // to the game and make sure that both players' ships are all deployed before it starts.
 // It also allows players to shoot and swap turns. It will also check if players' ships
 // are destroyed.
+[Serializable]
 public class BattleShipsGame
 {
 
@@ -19,10 +22,14 @@ public class BattleShipsGame
 	// The AttackCompleted event is raised when attack is completed.
     // It is used by the UI to play sound sound effects etc.
 	public event AttackCompletedHandler AttackCompleted;
-
+    public BattleShipsGame()
+    {
+        Clone = new Player[3];
+    }
 	private Player[] _players = new Player[3];
-
-	private int _playerIndex = 0;
+    private Player[] Clone;
+    
+    private int _playerIndex = 0;
 	// The current player. This value will switch between the two players
     // each turn.
 	public Player Player {
@@ -35,9 +42,11 @@ public class BattleShipsGame
 	{
 		if (_players[0] == null) {
 			_players[0] = p;
-		} else if (_players[1] == null) {
+            Clone[0] = DeepClone.Clone(p);
+        } else if (_players[1] == null) {
 			_players[1] = p;
-			CompleteDeployment();
+            Clone[1] = DeepClone.Clone(p);
+            CompleteDeployment();
 		} else {
 			throw new ApplicationException("You cannot add another player, the game already has two players.");
 		}
@@ -47,13 +56,38 @@ public class BattleShipsGame
     // to examine the details visable on the opponents sea grid.
 	private void CompleteDeployment()
 	{
-		_players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
-		_players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
-	}
+       
+            _players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
+            _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
+  
+    }
+    public void ResetGame()
+    {
+        // _players[0].Enemy = new SeaGridAdapter(Clone[1].PlayerGrid);
+        // _players[1].Enemy = new SeaGridAdapter(Clone[0].PlayerGrid);
+        if(_players[0] != null && _players[1]!= null)
+        {
+            _players[0].PlayerGrid.ResetTiles();
+            _players[1].PlayerGrid.ResetTiles();
 
-	// Shoot will swap between players and check if a player has been killed.
+            _players[0].PlayerGrid.ShipsKilled = 0;
+            _players[1].PlayerGrid.ShipsKilled = 0;
+
+            foreach (ShipName ship in _players[0].Shipss)
+            {
+                _players[0].Ship(ship).Hits = 0;
+            }
+
+            foreach (ShipName ship in _players[1].Shipss)
+            {
+                _players[1].Ship(ship).Hits = 0;
+            }
+        }
+       
+    }
+    // Shoot will swap between players and check if a player has been killed.
     // It also allows the current player to hit on the enemies grid.
-	public AttackResult Shoot(int row, int col)
+    public AttackResult Shoot(int row, int col)
 	{
 		AttackResult newAttack = default(AttackResult);
 		int otherPlayer = (_playerIndex + 1) % 2;

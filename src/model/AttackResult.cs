@@ -5,8 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 // AttackResult gives the result after a shot has been made
+[Serializable]
 public class AttackResult
 {
 	private ResultOfAttack _Value;

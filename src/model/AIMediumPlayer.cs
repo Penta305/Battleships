@@ -5,10 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 // The AIMediumPlayer is the medium difficulty AI, which is designed to
 // try and destroy ships once they've been found.
-
+[Serializable]
 public class AIMediumPlayer : AIPlayer
 {
     // Private enumerator for AI states. Currently there are two states;

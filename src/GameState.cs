@@ -13,6 +13,7 @@ namespace Battleship
         ChangingThemes,
         Deploying,
         Discovering,
+        ReDiscovering,
         EndingGame,
         Quitting
     }

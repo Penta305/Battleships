@@ -6,15 +6,18 @@ using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+[Serializable]
 // The AIPlayer is a type of player. It can randomly deploy ships and it has the
 // functionality to generate coordinates and shoot at tiles
 public abstract class AIPlayer : Player
 {
 
-	// Location can store the location of the last hit made by an
+    // Location can store the location of the last hit made by an
     // AI Player. The use of which determines the difficulty.
-	protected class Location
+    [Serializable]
+    protected class Location
 	{
 		private int _Row;
 
