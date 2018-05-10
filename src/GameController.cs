@@ -62,9 +62,10 @@ namespace Battleship
                 _playableShips = value;
             }
         }
-
+        
         static GameController()
         {
+            
             // Th bottom state will be quitting. If the player exits to the
             // main menu, then the game will end.
             _state.Push(GameState.Quitting);
