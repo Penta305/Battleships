@@ -72,7 +72,7 @@ namespace Battleship
             input2 = new StreamReader(filename);
             string temp;
             List<string> temp2 = new List<string>();
-            while (input1.ReadLine() != "")
+            while (input1.ReadLine() != null)
             {
                 temp = input.ReadLine();
                 temp2.Add(temp);
@@ -93,16 +93,18 @@ namespace Battleship
             }
 
             input.Close();
+            input1.Close();
+            input2.Close();
         }
 
         // Saves the scores back into the highscores text file
-        private static void SaveScores()
+        public static void SaveScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
             StreamWriter output;
             output = new StreamWriter(filename);
-            output.WriteLine(_Scores.Count);
+            // output.WriteLine(_Scores.Count);
             foreach (Score s in _Scores)
             {
                 output.WriteLine(s.Name +":" +s.Value);
@@ -177,6 +179,8 @@ namespace Battleship
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);
                 _Scores.Sort();
+
+                SaveScores();
                 GameController.EndCurrentState();
             }
         }
