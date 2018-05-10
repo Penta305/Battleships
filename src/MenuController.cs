@@ -12,7 +12,7 @@ namespace Battleship
 
         // The menu structure for the game. These are the text captions
         // for the menu items
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT", "SHIPS", "MUTE", "UNMUTE" }, new string[] { "RETURN", "SURRENDER", "QUIT", "MUTE", "UNMUTE","RESET" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string[] { "One", "Two", "Three", "Four", "Five" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT", "SHIPS", "MUTE", "UNMUTE", "THEME" }, new string[] { "RETURN", "SURRENDER", "QUIT", "MUTE", "UNMUTE", "RESET" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string[] { "One", "Two", "Three", "Four", "Five" }, new string[] { "CLASSIC", "SPACE" } };
 
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
@@ -25,6 +25,7 @@ namespace Battleship
         private const int GAME_MENU = 1;
         private const int SETUP_MENU = 2;
         private const int SHIPS_MENU = 3;
+        private const int THEME_MENU = 4;
         private const int MAIN_MENU_PLAY_BUTTON = 0;
         private const int MAIN_MENU_SETUP_BUTTON = 1;
         private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
@@ -32,6 +33,7 @@ namespace Battleship
         private const int MAIN_MENU_SHIPS_BUTTON = 4;
         private const int MAIN_MENU_MUTE_BUTTON = 5;
         private const int MAIN_MENU_UNMUTE_BUTTON = 6;
+        private const int MAIN_MENU_THEME_BUTTON = 7;
         private const int SETUP_MENU_EASY_BUTTON = 0;
         private const int SETUP_MENU_MEDIUM_BUTTON = 1;
         private const int SETUP_MENU_HARD_BUTTON = 2;
@@ -47,6 +49,8 @@ namespace Battleship
         private const int GAME_MENU_MUTE_BUTTON = 3;
         private const int GAME_MENU_UNMUTE_BUTTON = 4;
         private const int GAME_MENU_RESET_BUTTON = 5;
+        private const int THEME_MENU_CLASSIC_BUTTON = 0;
+        private const int THEME_MENU_SPACE_BUTTON = 1;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -78,7 +82,17 @@ namespace Battleship
                 HandleMenuInput(MAIN_MENU, 0, 0);
             }
         }
-      
+
+        public static void HandleThemeMenuInput()
+        {
+            bool handled;
+            handled = HandleMenuInput(THEME_MENU, 1, 1);
+            if (!handled)
+            {
+                HandleMenuInput(MAIN_MENU, 0, 0);
+            }
+        }
+
         // This handles the processing of the user input for when
         // the game menu is showing. The player is able to return
         // to the game, surrender or quit entirely
@@ -141,7 +155,13 @@ namespace Battleship
             DrawButtons(MAIN_MENU);
             DrawButtons(SHIPS_MENU, 1, 1);
         }
-      
+
+        public static void DrawThemeMenu()
+        {
+            DrawButtons(MAIN_MENU);
+            DrawButtons(THEME_MENU, 1, 1);
+        }
+
         // Draws the buttons associated with a top level menu
         private static void DrawButtons(int menu)
         {
@@ -208,6 +228,9 @@ namespace Battleship
                 case SHIPS_MENU:
                     PerformShipMenuAction(button);
                     break;
+                case THEME_MENU:
+                    PerformThemeMenuAction(button);
+                    break;
             }
         }
 
@@ -238,6 +261,9 @@ namespace Battleship
                 case MAIN_MENU_UNMUTE_BUTTON:
                     Audio.ResumeMusic();
                     break;
+                case MAIN_MENU_THEME_BUTTON:
+                    GameController.AddNewState(GameState.ChangingThemes);
+                    break;
             }
         }
 
@@ -266,7 +292,7 @@ namespace Battleship
             GameController.EndCurrentState();
         }
 
-      // If the game menu was clicked, perform the button's action
+        // If the game menu was clicked, perform the button's action
         private static void PerformGameMenuAction(int button)
         {
             // CHECK Implement Case Statement
@@ -283,15 +309,34 @@ namespace Battleship
                     GameController.AddNewState(GameState.Quitting);
                     break;
                 case GAME_MENU_MUTE_BUTTON:
-                    Audio.PauseMusic ();
+                    Audio.PauseMusic();
                     break;
                 case GAME_MENU_UNMUTE_BUTTON:
-                    Audio.ResumeMusic ();
+                    Audio.ResumeMusic();
                     break;
                 case GAME_MENU_RESET_BUTTON:
                     GameController.AddNewState(GameState.ReDiscovering);
                     break;
             }
         }
+            private static void PerformThemeMenuAction(int button)
+            {
+                // CHECK Implement Case Statement
+                switch (button)
+                {
+                    case THEME_MENU_CLASSIC_BUTTON:
+                    GameResources.swaptheme();
+                    Audio.PlaySoundEffect("Miss");
+                    break;
+
+                    case THEME_MENU_SPACE_BUTTON:
+                    GameResources.swaptheme();
+                    Audio.PlaySoundEffect("Sink1");
+                    break;
+                    
+                }
+            GameController.EndCurrentState();
+        }
+        
     }
 }

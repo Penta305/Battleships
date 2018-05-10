@@ -304,6 +304,9 @@ namespace Battleship
                 case GameState.ViewingHighScores:
                     HighScoreController.HandleHighScoreInput();
                     break;
+                case GameState.ChangingThemes:
+                    MenuController.HandleThemeMenuInput();
+                    break;
             }
             UtilityFunctions.UpdateAnimations();
         }
@@ -338,6 +341,9 @@ namespace Battleship
                     break;
                 case GameState.ViewingHighScores:
                     HighScoreController.DrawHighScores();
+                    break;
+                case GameState.ChangingThemes:
+                    MenuController.DrawThemeMenu();
                     break;
             }
             UtilityFunctions.DrawAnimations();
